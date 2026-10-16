@@ -1,0 +1,121 @@
+@import "tailwindcss";
+
+:root {
+  --background: #000000;
+  --foreground: #ffffff;
+  --page: #000000;
+  --card: #08080c;
+  --card-border: rgba(255, 255, 255, 0.12);
+  --frame-border: rgba(10, 102, 194, 0.35);
+  --muted: rgba(255, 255, 255, 0.7);
+  --dock-bg: linear-gradient(180deg, rgba(16, 18, 26, 0.85), rgba(0, 0, 0, 0.95));
+  --dock-border: rgba(10, 102, 194, 0.35);
+  --shadow-glow: 0 20px 60px -20px rgba(10, 102, 194, 0.3);
+}
+
+html.light {
+  --background: #ffffff;
+  --foreground: #000000;
+  --page: #f8fafc;
+  --card: #ffffff;
+  --card-border: rgba(0, 0, 0, 0.08);
+  --frame-border: rgba(10, 102, 194, 0.25);
+  --muted: rgba(0, 0, 0, 0.7);
+  --dock-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(240, 244, 248, 0.98));
+  --dock-border: rgba(10, 102, 194, 0.2);
+  --shadow-glow: 0 20px 60px -20px rgba(10, 102, 194, 0.15);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-inter);
+}
+
+html {
+  scroll-behavior: smooth;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body {
+  background: var(--page);
+  color: var(--foreground);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Theme toggle icons controlled via CSS to eliminate hydration mismatches */
+.theme-icon-sun {
+  display: block;
+}
+.theme-icon-moon {
+  display: none;
+}
+
+html.light .theme-icon-sun {
+  display: none;
+}
+html.light .theme-icon-moon {
+  display: block;
+}
+
+/* ── Page layout ── */
+main {
+  position: relative;
+  padding: 0.75rem;
+  padding-bottom: 0;
+}
+
+@media (min-width: 768px) {
+  main {
+    padding: 1.25rem;
+    padding-bottom: 0;
+  }
+}
+
+/* All sections: flat, flush, no individual border */
+main > section,
+main > footer {
+  position: relative;
+  min-height: 100vh;
+  background: var(--background);
+  overflow: hidden;
+  transition: background-color 0.3s ease;
+}
+
+main > footer {
+  min-height: auto;
+}
+
+/* ── Home section: rounded top corners only, flat bottom ── */
+main > section#home {
+  border-radius: 1.75rem 1.75rem 0 0;
+  border: 1px solid var(--frame-border);
+  border-bottom: none;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.02),
+    var(--shadow-glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  margin-bottom: 0;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Sections below Home: flush, no gap */
+main > section:not(#home),
+main > footer {
+  margin-top: 0;
+}
+
+@media (min-width: 768px) {
+  main > section#home {
+    border-radius: 2.5rem 2.5rem 0 0;
+  }
+}
+
+/* Section fade-in/out is handled by FadeSections (GSAP ScrollTrigger). */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
