@@ -33,8 +33,8 @@ export default function HomeBackground() {
   return (
     <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 opacity-40 transition-opacity duration-700">
       <AeroShards
-        shardColor="#2563eb"
-        accentColor="#60a5fa"
+        shardColor="#233B5D"
+        accentColor="#52769B"
         backgroundColor="transparent"
         lightMode={light}
         placement="full"

@@ -344,8 +344,8 @@ const MacOSDock: React.FC<MacOSDockProps> = ({
                                         width: `${Math.max(3, baseIconSize * 0.06)}px`,
                                         height: `${Math.max(3, baseIconSize * 0.06)}px`,
                                         borderRadius: '50%',
-                                        backgroundColor: '#0a66c2',
-                                        boxShadow: '0 0 8px 1.5px rgba(10, 102, 194, 0.9)',
+                                        backgroundColor: '#52769B',
+                                        boxShadow: '0 0 8px 1.5px rgba(82, 118, 155, 0.9)',
                                     }}
                                 />
                             )}

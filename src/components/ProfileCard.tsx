@@ -19,6 +19,7 @@ interface ProfileCardProps {
   statusColor?: string;
   contactText?: string;
   showUserInfo?: boolean;
+  showTextOverlay?: boolean;
   onContactClick?: () => void;
   theme?: Palette;
   backdropColor?: string;
@@ -117,6 +118,7 @@ const ProfileCard = ({
   statusColor = '#22c55e',
   contactText = 'Contact',
   showUserInfo = true,
+  showTextOverlay = true,
   onContactClick,
   theme = 'dark',
   backdropColor,
@@ -129,8 +131,8 @@ const ProfileCard = ({
   enableMobileTilt = false,
   mobileTiltSensitivity = 5,
   intro = true,
-  avatarScale = 1.8,
-  avatarOrigin = 'center 26%',
+  avatarScale = 1,
+  avatarOrigin = 'center center',
   className = ''
 }: ProfileCardProps) => {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -368,7 +370,7 @@ const ProfileCard = ({
           {avatarUrl && (
             <img className="profile-card__photo" src={avatarUrl} alt={name || ''} loading="lazy" draggable={false} />
           )}
-          {(name || title) && (
+          {showTextOverlay && (name || title) && (
             <>
               <span className="profile-card__scrim" />
               <div className="profile-card__info">

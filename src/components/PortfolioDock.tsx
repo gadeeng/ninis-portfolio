@@ -26,15 +26,14 @@ const MATERIAL_ICON_PATHS: Record<SectionId, string> = {
     '<path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>',
 };
 
-const ACTIVE_COLOR = "#0a66c2";
-
 function makeIcon(id: SectionId, active: boolean, isLight: boolean) {
   let tile: string;
   let iconColor: string;
 
   if (active) {
-    // Active dock item: #0a66c2 tile with white icon glyph
-    tile = `<rect width="64" height="64" rx="16" fill="${ACTIVE_COLOR}"/><rect x="0.75" y="0.75" width="62.5" height="62.5" rx="15.25" fill="none" stroke="rgba(255, 255, 255, 0.35)" stroke-width="1.5"/>`;
+    // Active dock item: brand color tile (#233B5D in light, #52769B in dark) with white icon glyph
+    const activeFill = isLight ? "#233B5D" : "#52769B";
+    tile = `<rect width="64" height="64" rx="16" fill="${activeFill}"/><rect x="0.75" y="0.75" width="62.5" height="62.5" rx="15.25" fill="none" stroke="rgba(255, 255, 255, 0.35)" stroke-width="1.5"/>`;
     iconColor = "#ffffff";
   } else if (isLight) {
     // Light theme: white background icon with clean slate glyph

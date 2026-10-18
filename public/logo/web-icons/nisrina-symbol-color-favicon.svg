@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256"><title>Nisrina Zalfa Qarirah Logo</title><g transform="translate(-26.24 -43.11) scale(1.205)">
+  <title id="sym-title">Nisrina Zalfa Qarirah — Symbol (Small Scale / Favicon)</title>
+  <!-- Hexagonal unit cell boundary (HCP crystal system) -->
+  <path fill="none" stroke="#233B5D" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"
+        d="M 96 40 L 160 40 L 210.81 128 L 160 216 L 96 216 L 45.19 128 Z"/>
+  <!-- Q anchor tail extending at 45° -->
+  <path fill="none" stroke="#233B5D" stroke-width="22" stroke-linecap="round"
+        d="M 160 216 L 188 244"/>
+  <!-- Left upright of N -->
+  <path fill="none" stroke="#233B5D" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"
+        d="M 96 40 L 96 216"/>
+  <!-- Central N/Z diagonal -->
+  <path fill="none" stroke="#233B5D" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"
+        d="M 96 40 L 160 216"/>
+  <!-- Right upright of N -->
+  <path fill="none" stroke="#233B5D" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"
+        d="M 160 40 L 160 216"/>
+</g></svg>

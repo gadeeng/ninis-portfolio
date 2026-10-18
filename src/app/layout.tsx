@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Uncial_Antiqua } from "next/font/google";
 import "./globals.css";
 
@@ -15,10 +15,26 @@ const uncial = Uncial_Antiqua({
   display: "swap",
 });
 
+export const viewport: Viewport = {
+  themeColor: "#233B5D",
+};
+
 export const metadata: Metadata = {
   title: "Nisrina Zalfa Qarirah — Portfolio",
   description:
     "Portfolio of Nisrina Zalfa Qarirah, Materials Physics graduate focused on experimental research.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
+  manifest: "/site.webmanifest",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

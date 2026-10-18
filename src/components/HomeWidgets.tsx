@@ -44,7 +44,7 @@ function Draggable({
           }
         }
       }
-    } catch {}
+    } catch { }
   }, [key, id]);
 
   useEffect(() => {
@@ -55,7 +55,7 @@ function Draggable({
         localStorage.removeItem(key);
         localStorage.removeItem(`widget-pos-v2-${id}`);
         localStorage.removeItem(`widget-pos-${id}`);
-      } catch {}
+      } catch { }
     };
 
     window.addEventListener("reset-home-widgets", handleReset);
@@ -91,14 +91,14 @@ function Draggable({
     if (e.currentTarget.hasPointerCapture(e.pointerId)) {
       try {
         e.currentTarget.releasePointerCapture(e.pointerId);
-      } catch {}
+      } catch { }
     }
     if (isDraggingRef.current) {
       isDraggingRef.current = false;
       setDragging(false);
       try {
         localStorage.setItem(key, JSON.stringify(pos));
-      } catch {}
+      } catch { }
     }
   };
 
@@ -116,19 +116,19 @@ function Draggable({
           localStorage.removeItem(key);
           localStorage.removeItem(`widget-pos-v2-${id}`);
           localStorage.removeItem(`widget-pos-${id}`);
-        } catch {}
+        } catch { }
       }}
       title={canDrag ? "Drag to move · Double-click to reset position" : undefined}
       style={
         canDrag
           ? {
-              transform: `translate(${pos.x}px, ${pos.y}px) scale(${dragging ? 1.04 : 1})`,
-              zIndex: z,
-              touchAction: "none",
-              cursor: dragging ? "grabbing" : "grab",
-              transition: dragging ? "none" : "transform 0.2s ease",
-              userSelect: "none",
-            }
+            transform: `translate(${pos.x}px, ${pos.y}px) scale(${dragging ? 1.04 : 1})`,
+            zIndex: z,
+            touchAction: "none",
+            cursor: dragging ? "grabbing" : "grab",
+            transition: dragging ? "none" : "transform 0.2s ease",
+            userSelect: "none",
+          }
           : undefined
       }
       className="pointer-events-auto relative flex shrink-0 snap-center"
@@ -139,7 +139,7 @@ function Draggable({
 }
 
 const solidCard =
-  "relative w-[220px] overflow-hidden rounded-3xl border border-[var(--card-border)] bg-[var(--card)] p-5 text-foreground shadow-[0_16px_40px_-10px_rgba(0,0,0,0.5),0_0_24px_-4px_rgba(10,102,194,0.25)] transition-colors duration-300";
+  "relative w-[220px] overflow-hidden rounded-3xl border border-[var(--card-border)] bg-[var(--card)] p-5 text-foreground shadow-[0_16px_40px_-10px_rgba(0,0,0,0.5),0_0_24px_-4px_rgba(82,118,155,0.25)] transition-colors duration-300";
 const label = "text-[10px] font-semibold uppercase tracking-[0.2em] text-foreground/50";
 
 /* ───────── Clock ───────── */
@@ -168,7 +168,7 @@ function ClockWidget() {
     <div className={`${solidCard} flex flex-col items-center`}>
       <div className="mb-3 flex w-full items-center justify-between">
         <span className={label}>Clock</span>
-        <span className="rounded-full bg-[#0a66c2]/20 px-2 py-0.5 text-[10px] font-medium text-[#60a5fa]">{tz}</span>
+        <span className="rounded-full bg-[#52769B]/20 px-2 py-0.5 text-[10px] font-medium text-[#52769B] dark:text-[#89A8C9]">{tz}</span>
       </div>
       <svg viewBox="0 0 100 100" className="h-28 w-28" aria-label="Analog clock">
         <circle cx="50" cy="50" r="47" className="fill-foreground/[0.03] stroke-[var(--card-border)]" strokeWidth="1" />
@@ -184,8 +184,8 @@ function ClockWidget() {
         ))}
         <line x1="50" y1="50" x2="50" y2="28" transform={`rotate(${hourDeg} 50 50)`} className="stroke-foreground" strokeWidth="3" strokeLinecap="round" />
         <line x1="50" y1="50" x2="50" y2="17" transform={`rotate(${minDeg} 50 50)`} className="stroke-foreground" strokeWidth="2" strokeLinecap="round" />
-        <line x1="50" y1="56" x2="50" y2="14" transform={`rotate(${secDeg} 50 50)`} stroke="#60a5fa" strokeWidth="1" strokeLinecap="round" />
-        <circle cx="50" cy="50" r="2.5" fill="#60a5fa" />
+        <line x1="50" y1="56" x2="50" y2="14" transform={`rotate(${secDeg} 50 50)`} stroke="#C49A76" strokeWidth="1.2" strokeLinecap="round" />
+        <circle cx="50" cy="50" r="2.5" fill="#C49A76" />
       </svg>
       <span className="mt-3 text-2xl font-semibold tabular-nums tracking-tight">{digital}</span>
       <span className="text-xs text-foreground/60">
@@ -219,7 +219,7 @@ function CalendarWidget() {
             {today.toLocaleDateString("en-US", { month: "long" })}
           </div>
         </div>
-        <span className="bg-gradient-to-br from-[#60a5fa] to-[#0a66c2] bg-clip-text text-4xl font-bold leading-none text-transparent">
+        <span className="bg-gradient-to-br from-[#89A8C9] via-[#52769B] to-[#233B5D] bg-clip-text text-4xl font-bold leading-none text-transparent">
           {today.getDate()}
         </span>
       </div>
@@ -232,7 +232,7 @@ function CalendarWidget() {
             key={i}
             className={
               d === today.getDate()
-                ? "mx-auto flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br from-[#60a5fa] to-[#0a66c2] font-semibold text-white shadow-[0_0_12px_rgba(96,165,250,0.6)]"
+                ? "mx-auto flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br from-[#52769B] to-[#233B5D] font-semibold text-white shadow-[0_0_12px_rgba(82,118,155,0.5)]"
                 : "mx-auto flex h-6 w-6 items-center justify-center text-foreground/75"
             }
           >
@@ -279,7 +279,7 @@ function WeatherWidget() {
   useEffect(() => {
     navigator.geolocation?.getCurrentPosition(
       (p) => setLoc({ lat: p.coords.latitude, lon: p.coords.longitude, name: "Your location" }),
-      () => {},
+      () => { },
       { timeout: 5000 }
     );
   }, []);
@@ -365,13 +365,13 @@ export default function HomeWidgets() {
         localStorage.removeItem(`widget-pos-v2-${id}`);
         localStorage.removeItem(`widget-pos-v3-${id}`);
       });
-    } catch {}
+    } catch { }
   };
 
   return (
     <>
       <div className="pointer-events-auto relative z-20 -mx-6 -my-5 flex w-[calc(100%+3rem)] snap-x snap-mandatory items-center justify-start gap-4 overflow-x-auto px-6 py-8 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden xl:pointer-events-none xl:absolute xl:inset-0 xl:mx-0 xl:my-0 xl:w-auto xl:snap-none xl:justify-between xl:overflow-visible xl:px-10 xl:py-0">
-        <div className="contents xl:flex xl:flex-col xl:gap-4 xl:translate-y-12">
+        <div className="contents xl:flex xl:flex-col xl:gap-4 xl:translate-y-0">
           <Draggable id="clock" onMovedChange={handleMovedChange}>
             <ClockWidget />
           </Draggable>
@@ -394,7 +394,7 @@ export default function HomeWidgets() {
           title="Reset all widgets to default positions"
         >
           <svg
-            className="h-3.5 w-3.5 text-[#60a5fa]"
+            className="h-3.5 w-3.5 text-[#52769B]"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"

@@ -38,14 +38,14 @@ export default function Home() {
           cursorCharacter="|"
           typingSpeed={60}
           pauseDuration={1600}
-          className="text-lg font-medium tracking-wide text-foreground/80 md:text-xl"
+          className="text-lg font-medium tracking-wide text-foreground/80 md:text-xl drop-shadow-[0_1px_6px_rgba(255,255,255,0.8)] dark:drop-shadow-none"
         />
 
-        <h1 className="flex flex-wrap items-center justify-center gap-x-3 text-4xl font-semibold md:text-6xl">
+        <h1 className="flex flex-wrap items-center justify-center gap-x-3 text-4xl font-semibold md:text-6xl drop-shadow-[0_1px_8px_rgba(255,255,255,0.7)] dark:drop-shadow-none">
           <span>Hi! I&apos;m</span>
           <GradientText
             className="!m-0 !cursor-default px-1 py-1 font-[family-name:var(--font-uncial)] font-normal"
-            colors={["#0a66c2", "#2563eb", "#60a5fa"]}
+            colors={["#52769B", "#C49A76", "#89A8C9"]}
             animationSpeed={3}
             direction="horizontal"
             yoyo={true}
@@ -57,7 +57,7 @@ export default function Home() {
           <span className="-ml-2">.</span>
         </h1>
 
-        <p className="max-w-xl text-sm leading-relaxed text-foreground/75 md:text-base">
+        <p className="max-w-xl text-sm leading-relaxed text-foreground/75 md:text-base drop-shadow-[0_1px_6px_rgba(255,255,255,0.8)] dark:drop-shadow-none">
           {SUBTEXT}
         </p>
       </div>

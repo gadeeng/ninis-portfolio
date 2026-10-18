@@ -4,26 +4,86 @@
   --background: #000000;
   --foreground: #ffffff;
   --page: #000000;
-  --card: #08080c;
+  --card: #080c14;
   --card-border: rgba(255, 255, 255, 0.12);
-  --frame-border: rgba(10, 102, 194, 0.35);
+  --frame-border: rgba(82, 118, 155, 0.35);
   --muted: rgba(255, 255, 255, 0.7);
-  --dock-bg: linear-gradient(180deg, rgba(16, 18, 26, 0.85), rgba(0, 0, 0, 0.95));
-  --dock-border: rgba(10, 102, 194, 0.35);
-  --shadow-glow: 0 20px 60px -20px rgba(10, 102, 194, 0.3);
+  --dock-bg: linear-gradient(180deg, rgba(20, 32, 50, 0.85), rgba(8, 12, 20, 0.95));
+  --dock-border: rgba(82, 118, 155, 0.35);
+  --shadow-glow: 0 20px 60px -20px rgba(82, 118, 155, 0.3);
+  --logo-symbol: #ffffff;
 }
 
 html.light {
   --background: #ffffff;
-  --foreground: #000000;
+  --foreground: #0f172a;
   --page: #f8fafc;
   --card: #ffffff;
-  --card-border: rgba(0, 0, 0, 0.08);
-  --frame-border: rgba(10, 102, 194, 0.25);
-  --muted: rgba(0, 0, 0, 0.7);
-  --dock-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(240, 244, 248, 0.98));
-  --dock-border: rgba(10, 102, 194, 0.2);
-  --shadow-glow: 0 20px 60px -20px rgba(10, 102, 194, 0.15);
+  --card-border: rgba(15, 23, 42, 0.08);
+  --frame-border: rgba(35, 59, 93, 0.16);
+  --muted: #475569;
+  --dock-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 252, 0.98));
+  --dock-border: rgba(15, 23, 42, 0.15);
+  --shadow-glow: 0 20px 60px -20px rgba(15, 23, 42, 0.08);
+  --logo-symbol: #233b5d;
+}
+
+/* ── Light Mode High-Contrast Typography & Content Readability ── */
+html.light {
+  color: #0f172a;
+}
+
+html.light h1,
+html.light h2,
+html.light h3,
+html.light h4 {
+  color: #0f172a !important;
+}
+
+/* Elevate all foreground opacities to high-contrast, crystal-clear dark tones in light mode */
+html.light [class*="text-foreground/20"],
+html.light [class*="text-foreground/25"],
+html.light [class*="text-foreground/30"],
+html.light [class*="text-foreground/35"] {
+  color: #334155 !important; /* Slate 700: strong legible labels, 9.6:1 contrast */
+  font-weight: 500;
+}
+
+html.light [class*="text-foreground/40"],
+html.light [class*="text-foreground/45"],
+html.light [class*="text-foreground/50"] {
+  color: #1e293b !important; /* Slate 800: 12.6:1 contrast */
+}
+
+html.light [class*="text-foreground/55"],
+html.light [class*="text-foreground/60"],
+html.light [class*="text-foreground/70"],
+html.light [class*="text-foreground/75"],
+html.light [class*="text-foreground/80"] {
+  color: #0f172a !important; /* Slate 900: full contrast body text */
+}
+
+/* Bullets and dividers in light mode */
+html.light [class*="bg-foreground/25"],
+html.light [class*="bg-foreground/20"] {
+  background-color: #334155 !important;
+}
+
+html.light [class*="stroke-foreground/60"] {
+  stroke: #1e293b !important;
+}
+
+/* Links & brand accents with high contrast in light mode */
+html.light a.text-\[\#52769B\],
+html.light span.text-\[\#52769B\] {
+  color: #1e3a5f !important; /* Rich deep navy: 10+:1 contrast on white */
+}
+
+/* Badge styling in light mode */
+html.light [class*="bg-foreground/[0.03]"],
+html.light [class*="bg-foreground/\\[0.03\\]"] {
+  background-color: rgba(15, 23, 42, 0.05) !important;
+  border-color: rgba(15, 23, 42, 0.16) !important;
 }
 
 @theme inline {
@@ -42,6 +102,29 @@ body {
   color: var(--foreground);
   font-family: var(--font-inter), system-ui, sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ── Text selection styling ── */
+::selection {
+  background-color: #ffffff;
+  color: #000000;
+  -webkit-text-fill-color: #000000;
+}
+
+::-moz-selection {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+html.light ::selection {
+  background-color: #000000;
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
+}
+
+html.light ::-moz-selection {
+  background-color: #000000;
+  color: #ffffff;
 }
 
 /* Theme toggle icons controlled via CSS to eliminate hydration mismatches */

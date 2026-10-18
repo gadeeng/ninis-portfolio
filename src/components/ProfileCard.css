@@ -13,7 +13,7 @@
   --pc-tilt: 0;
   --pc-active: 0;
   position: relative;
-  width: 340px;
+  width: var(--pc-width, 360px);
   max-width: 100%;
   perspective: 1000px;
   touch-action: pan-y;
@@ -37,7 +37,7 @@
 
 .profile-card__tile {
   position: relative;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: var(--pc-tile-aspect, 3 / 4);
   border-radius: var(--pc-radius);
   background: var(--pc-backdrop);
   box-shadow: var(--pc-tile-shadow);
@@ -172,9 +172,9 @@
   width: calc(100% + var(--pc-parallax) * 2);
   height: calc(100% + var(--pc-parallax) * 2);
   object-fit: cover;
-  object-position: var(--pc-avatar-origin, center 26%);
-  transform: translate3d(var(--pc-shift-x), var(--pc-shift-y), 0) scale(var(--pc-avatar-scale, 1.8));
-  transform-origin: var(--pc-avatar-origin, center 26%);
+  object-position: var(--pc-avatar-origin, center center);
+  transform: translate3d(var(--pc-shift-x), var(--pc-shift-y), 0) scale(var(--pc-avatar-scale, 1));
+  transform-origin: var(--pc-avatar-origin, center center);
   pointer-events: none;
   user-select: none;
   -webkit-user-select: none;

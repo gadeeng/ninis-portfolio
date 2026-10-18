@@ -152,9 +152,9 @@ export default function AboutMe() {
             <pattern id="ab-lattice" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
               <line x1="30" y1="0" x2="30" y2="60" stroke="#38bdf8" strokeWidth="0.3" opacity="0.035" />
               <line x1="0" y1="30" x2="60" y2="30" stroke="#38bdf8" strokeWidth="0.3" opacity="0.035" />
-              <circle cx="0"  cy="0"  r="1.2" fill="#38bdf8" opacity="0.05" />
-              <circle cx="60" cy="0"  r="1.2" fill="#38bdf8" opacity="0.05" />
-              <circle cx="0"  cy="60" r="1.2" fill="#38bdf8" opacity="0.05" />
+              <circle cx="0" cy="0" r="1.2" fill="#38bdf8" opacity="0.05" />
+              <circle cx="60" cy="0" r="1.2" fill="#38bdf8" opacity="0.05" />
+              <circle cx="0" cy="60" r="1.2" fill="#38bdf8" opacity="0.05" />
               <circle cx="60" cy="60" r="1.2" fill="#38bdf8" opacity="0.05" />
               <circle cx="30" cy="30" r="1.5" fill="#818cf8" opacity="0.06" />
             </pattern>
@@ -165,11 +165,11 @@ export default function AboutMe() {
 
           {/* Key crystal lattice nodes with dual-layer neon glow */}
           {([
-            [120,120],[300,180],[540,60],[780,120],[960,60],
-            [60,360],[240,300],[480,360],[720,300],[1020,360],
-            [180,540],[420,480],[660,540],[900,480],
-            [60,720],[300,660],[540,720],[780,660],[1020,720],
-          ] as [number,number][]).map(([x,y],i) => {
+            [120, 120], [300, 180], [540, 60], [780, 120], [960, 60],
+            [60, 360], [240, 300], [480, 360], [720, 300], [1020, 360],
+            [180, 540], [420, 480], [660, 540], [900, 480],
+            [60, 720], [300, 660], [540, 720], [780, 660], [1020, 720],
+          ] as [number, number][]).map(([x, y], i) => {
             const isCyan = i % 2 === 0;
             const isHighlight = i % 3 === 0;
             return (
@@ -259,7 +259,7 @@ export default function AboutMe() {
             {/* Glowing electron points */}
             <circle cx="905" cy="210" r="6" fill="#38bdf8" opacity="0.25" />
             <circle cx="905" cy="210" r="2.8" fill="#ffffff" stroke="#38bdf8" strokeWidth="1" />
-            
+
             <circle cx="747" cy="119" r="5.5" fill="#38bdf8" opacity="0.22" />
             <circle cx="747" cy="119" r="2.5" fill="#ffffff" stroke="#38bdf8" strokeWidth="1" />
 
@@ -272,13 +272,13 @@ export default function AboutMe() {
         {/* Lightweight Physics & Materials Science Formula Tokens */}
         <div className="absolute inset-0 font-mono pointer-events-none">
           {([
-            { t: "ψ(r,θ,φ)",  top: "7%",  left: "5%",   op: 0.38, c: "#38bdf8" },
-            { t: "d-spacing", top: "14%", right: "8%",  op: 0.32, c: "#818cf8" },
-            { t: "XRD",       top: "34%", left: "3%",   op: 0.36, c: "#38bdf8" },
-            { t: "SEM · EDX", top: "49%", right: "4%",  op: 0.30, c: "#7dd3fc" },
-            { t: "CaCO₃",     top: "61%", left: "6%",   op: 0.28, c: "#a5b4fc" },
-            { t: "σ(E)",      top: "71%", right: "9%",  op: 0.32, c: "#38bdf8" },
-            { t: "Zn²⁺",      top: "87%", right: "18%", op: 0.28, c: "#7dd3fc" },
+            { t: "ψ(r,θ,φ)", top: "7%", left: "5%", op: 0.38, c: "#38bdf8" },
+            { t: "d-spacing", top: "14%", right: "8%", op: 0.32, c: "#818cf8" },
+            { t: "XRD", top: "34%", left: "3%", op: 0.36, c: "#38bdf8" },
+            { t: "SEM · EDX", top: "49%", right: "4%", op: 0.30, c: "#7dd3fc" },
+            { t: "CaCO₃", top: "61%", left: "6%", op: 0.28, c: "#a5b4fc" },
+            { t: "σ(E)", top: "71%", right: "9%", op: 0.32, c: "#38bdf8" },
+            { t: "Zn²⁺", top: "87%", right: "18%", op: 0.28, c: "#7dd3fc" },
             { t: "λ = 2d·sinθ", top: "43%", left: "28%", op: 0.24, c: "#818cf8" },
           ] as { t: string; top: string; left?: string; right?: string; op: number; c: string }[])
             .map(({ t, top, left, right, op, c }) => (
@@ -312,13 +312,15 @@ export default function AboutMe() {
         <div className="grid items-center gap-12 md:grid-cols-2">
           <div className="order-1 flex justify-center md:order-2 md:justify-end">
             <ProfileCard
-              avatarUrl="/profile.jpeg"
+              avatarUrl="/profile.png"
               name="Nisrina Zalfa Qarirah"
               title="Material Physics Graduate"
               showUserInfo={false}
+              showTextOverlay={false}
               intro={false}
-              avatarScale={1.8}
-              avatarOrigin="center 26%"
+              avatarScale={1}
+              avatarOrigin="center center"
+              parallax={0}
               theme={mounted && isLight ? "light" : "dark"}
               radius={18}
               holo={0.8}
@@ -345,7 +347,7 @@ export default function AboutMe() {
               {SKILLS.map((s) => (
                 <li
                   key={s}
-                  className="rounded-full border border-foreground/10 bg-foreground/[0.03] px-3 py-1 text-xs font-medium text-foreground/75 transition-colors hover:border-[#0a66c2]/50 hover:text-foreground"
+                  className="rounded-full border border-foreground/10 bg-foreground/[0.03] px-3 py-1 text-xs font-medium text-foreground/75 transition-colors hover:border-[#52769B]/50 hover:text-foreground"
                 >
                   {s}
                 </li>
@@ -402,7 +404,7 @@ export default function AboutMe() {
                 </div>
                 <div className="mt-3 h-px w-full bg-foreground/[0.06] overflow-hidden">
                   <div
-                    className="h-full bg-[#0a66c2]/60"
+                    className="h-full bg-[#52769B]/70"
                     style={{ width: `${(parseFloat(EDUCATION.gpa) / 4) * 100}%` }}
                   />
                 </div>
@@ -416,7 +418,7 @@ export default function AboutMe() {
               <div className="py-8 px-6 border-r border-foreground/[0.08]">
                 <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-foreground/35 mb-3">Graduated</p>
                 <div className="flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#0a66c2] shrink-0" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#52769B] shrink-0" />
                   <p className="text-sm font-medium text-foreground/80">{EDUCATION.graduationDate}</p>
                 </div>
               </div>
@@ -441,7 +443,7 @@ export default function AboutMe() {
                     <div key={item.title}>
                       <div className="flex items-center gap-2 mb-1.5">
                         <span className="text-base leading-none">{item.icon}</span>
-                        <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-[#0a66c2]">
+                        <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-[#52769B]">
                           {item.medal}
                         </span>
                         <span className="ml-auto text-[11px] text-foreground/30 tabular-nums">{item.year}</span>
@@ -466,7 +468,7 @@ export default function AboutMe() {
                       href={EDUCATION.thesis.publicationUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group inline-flex w-fit items-center gap-1.5 text-[12px] font-medium text-[#0a66c2] transition-opacity hover:opacity-70"
+                      className="group inline-flex w-fit items-center gap-1.5 text-[12px] font-medium text-[#52769B] transition-opacity hover:opacity-70"
                     >
                       <Sparkles className="h-3 w-3 shrink-0" />
                       <span>Published</span>
@@ -490,7 +492,7 @@ export default function AboutMe() {
                       href={EDUCATION.thesis.publicationUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[12px] text-[#0a66c2] hover:underline underline-offset-2 leading-relaxed"
+                      className="text-[12px] text-[#52769B] hover:underline underline-offset-2 leading-relaxed"
                     >
                       {EDUCATION.thesis.publicationTitle}
                     </a>
