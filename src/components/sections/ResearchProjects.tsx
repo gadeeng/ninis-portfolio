@@ -1,71 +1,77 @@
 "use client";
 
+import React, { useState } from "react";
 import {
   Presentation,
   Microscope,
   Atom,
   Cpu,
-  ExternalLink,
-  Calendar,
-  Sparkles,
+  ArrowUpRight,
   TrendingDown,
   Layers,
+  Sparkles,
+  Calendar,
+  CheckCircle2,
+  ShieldCheck,
+  Activity,
+  SlidersHorizontal,
 } from "lucide-react";
 
-export type ResearchProject = {
+type ProjectCategory = "all" | "materials" | "iot" | "lab";
+
+interface ProjectItem {
   id: string;
-  category: string;
+  categoryTag: string;
+  categoryType: ProjectCategory;
   title: string;
-  subtitle?: string;
-  role?: string;
+  role: string;
   period: string;
-  metricHighlight?: {
+  isFlagship?: boolean;
+  metric?: {
     value: string;
     label: string;
+    sublabel?: string;
   };
+  highlights?: {
+    stat: string;
+    caption: string;
+  }[];
   bullets: string[];
   tags: string[];
-  icon: "conference" | "thesis" | "lab" | "iot";
+  icon: "thesis" | "conference" | "iot" | "lab";
   link?: {
     label: string;
     url: string;
   };
-};
+}
 
-const RESEARCH_PROJECTS: ResearchProject[] = [
-  {
-    id: "icpiam-2025",
-    category: "International Conference",
-    title:
-      "6th International Conference on Physical Instrumentations and Advanced Materials (ICPIAM 2025)",
-    role: "Presenter & Researcher",
-    period: "Nov 2025",
-    icon: "conference",
-    bullets: [
-      "Conducted experimental data collection and structural analysis using FTIR and XRD.",
-      "Delivered a research-based technical presentation to an international academic audience, communicating experimental methods, data findings, and material performance insights.",
-    ],
-    tags: ["FTIR", "XRD", "Structural Analysis", "Advanced Materials", "Oral Presentation"],
-  },
+const PROJECTS: ProjectItem[] = [
   {
     id: "undergraduate-thesis",
-    category: "Undergraduate Thesis Research",
+    categoryTag: "Undergraduate Thesis · Flagship Research",
+    categoryType: "materials",
+    isFlagship: true,
     title:
       "Zinc-Rich Epoxy Coating Development for Corrosion Protection on ASTM A283 Steel",
     role: "Principal Researcher · Materials Physics",
     period: "March 2025 – March 2026",
-    icon: "thesis",
-    metricHighlight: {
-      value: "73% Reduction",
-      label: "Corrosion rate to 0.031 mm/year",
+    metric: {
+      value: "73%",
+      label: "Corrosion Rate Reduction",
+      sublabel: "Reduced to 0.031 mm/year across corrosive industrial conditions",
     },
+    highlights: [
+      { stat: "5 Variations", caption: "Formulation variations (0–6 wt% biogenic CaCO₃)" },
+      { stat: "8 Protocols", caption: "XRD, PSA, SEM-EDX, Tafel, Pull-off & Vickers" },
+    ],
     bullets: [
-      "Developed and optimized zinc-rich epoxy coating with 5 formulation variations (0–6 wt%), achieving 73% reduction in corrosion rate to 0.031 mm/year, enhancing material durability for corrosive industrial environments.",
-      "Conducted comprehensive material characterization and quality evaluation using XRD, PSA, SEM-EDX, Tafel Polarization, Pull-off, and Vickers testing, ensuring coating performance consistency and reliability.",
+      "Developed and optimized zinc-rich epoxy coating with 5 formulation variations (0–6 wt%), achieving a 73% reduction in corrosion rate down to 0.031 mm/year, substantially enhancing material durability for corrosive industrial environments.",
+      "Conducted comprehensive material characterization and quality evaluation using XRD, PSA, SEM-EDX, Tafel Polarization, Pull-off adhesion, and Vickers microhardness testing, ensuring coating performance consistency and reliability.",
     ],
     tags: [
       "ASTM A283 Steel",
       "Corrosion Protection",
+      "Biogenic CaCO₃",
       "XRD",
       "PSA",
       "SEM-EDX",
@@ -73,23 +79,68 @@ const RESEARCH_PROJECTS: ResearchProject[] = [
       "Pull-off Testing",
       "Vickers Hardness",
     ],
+    icon: "thesis",
     link: {
       label: "View Published Article",
       url: "https://journal.umy.ac.id/index.php/jmpm/article/view/32277",
     },
   },
   {
-    id: "experimental-physics-lab",
-    category: "Laboratory Projects",
+    id: "icpiam-2025",
+    categoryTag: "International Conference",
+    categoryType: "materials",
     title:
-      "Experimental Physics (Laboratory Projects) — Material & Physical Testing",
+      "6th International Conference on Physical Instrumentations and Advanced Materials (ICPIAM 2025)",
+    role: "Presenter & Researcher",
+    period: "Nov 2025",
+    bullets: [
+      "Conducted experimental data collection and structural analysis using FTIR and XRD spectroscopy.",
+      "Delivered a research-based technical oral presentation to an international academic audience, effectively communicating experimental methods, data findings, and material performance insights.",
+    ],
+    tags: [
+      "FTIR Spectroscopy",
+      "XRD Analysis",
+      "Structural Analysis",
+      "Advanced Materials",
+      "Oral Presentation",
+    ],
+    icon: "conference",
+  },
+  {
+    id: "iot-monitoring-system",
+    categoryTag: "Hardware & Telemetry Prototype",
+    categoryType: "iot",
+    title:
+      "IoT-Based Temperature & Humidity Monitoring System",
+    role: "Hardware & Systems Developer",
+    period: "May 2025",
+    bullets: [
+      "Designed and assembled an IoT-based environmental monitoring system using ESP32 microcontroller and DHT22 digital sensors, enabling real-time temperature and humidity tracking via the Blynk 2.0 mobile platform.",
+      "Developed circuit configuration and implemented sensor-based data acquisition, supporting continuous environmental parameter monitoring without manual recording.",
+      "Built a prototype system to improve monitoring efficiency and reduce manual inspection risks in controlled environments requiring stable temperature and humidity conditions.",
+    ],
+    tags: [
+      "ESP32",
+      "DHT22 Sensor",
+      "Blynk 2.0",
+      "IoT Telemetry",
+      "Sensor Calibration",
+      "Hardware Prototyping",
+    ],
+    icon: "iot",
+  },
+  {
+    id: "experimental-physics-lab",
+    categoryTag: "Laboratory & Physical Testing",
+    categoryType: "lab",
+    title:
+      "Experimental Physics — Materials & Physical Testing Research",
     role: "Experimental Researcher",
     period: "2024 – 2025",
-    icon: "lab",
     bullets: [
       "Performed mechanical and electrical testing, including Rockwell hardness, tensile strength, and Hall Effect measurements, collecting and analyzing experimental data to evaluate material properties.",
       "Assessed corrosion and molecular weight experiments, interpreting quantitative results to assess material durability and composition characteristics.",
-      "Presented experimental findings through technical presentations, demonstrating data interpretation and scientific communication skills.",
+      "Presented experimental findings through technical presentations, demonstrating rigorous data interpretation and scientific communication skills.",
     ],
     tags: [
       "Rockwell Hardness",
@@ -98,174 +149,287 @@ const RESEARCH_PROJECTS: ResearchProject[] = [
       "Corrosion Testing",
       "Molecular Weight Analysis",
     ],
-  },
-  {
-    id: "iot-monitoring-system",
-    category: "Instrumentation & IoT",
-    title:
-      "Instrumentation Project Developer — IoT-Based Temperature & Humidity Monitoring System",
-    role: "Hardware & Systems Developer",
-    period: "May 2025",
-    icon: "iot",
-    bullets: [
-      "Designed and assembled an IoT-based environmental monitoring system using ESP32 and DHT22 sensors, enabling real-time temperature and humidity tracking via mobile platform (Blynk 2.0).",
-      "Developed circuit configuration and implemented sensor-based data acquisition, supporting continuous environmental parameter monitoring without manual recording.",
-      "Built a prototype system to improve monitoring efficiency and reduce manual inspection risks in controlled environments requiring stable temperature and humidity conditions, demonstrating data interpretation and scientific communication skills.",
-    ],
-    tags: [
-      "ESP32",
-      "DHT22",
-      "Blynk 2.0",
-      "IoT Data Acquisition",
-      "Sensor Calibration",
-      "Hardware Prototyping",
-    ],
+    icon: "lab",
   },
 ];
 
-function ProjectIcon({ type }: { type: ResearchProject["icon"] }) {
+const CATEGORIES: { id: ProjectCategory; label: string }[] = [
+  { id: "all", label: "All Works" },
+  { id: "materials", label: "Materials & Coatings" },
+  { id: "iot", label: "IoT & Systems" },
+  { id: "lab", label: "Lab & Testing" },
+];
+
+function CategoryIcon({ type }: { type: ProjectItem["icon"] }) {
   switch (type) {
-    case "conference":
-      return <Presentation className="h-6 w-6 text-[#0A47B8] dark:text-[#89A8C9]" />;
     case "thesis":
-      return <Microscope className="h-6 w-6 text-[#0A47B8] dark:text-[#89A8C9]" />;
-    case "lab":
-      return <Atom className="h-6 w-6 text-[#0A47B8] dark:text-[#89A8C9]" />;
+      return <Microscope className="h-5 w-5 text-sky-600 dark:text-sky-400" />;
+    case "conference":
+      return <Presentation className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />;
     case "iot":
-      return <Cpu className="h-6 w-6 text-[#0A47B8] dark:text-[#89A8C9]" />;
+      return <Cpu className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />;
+    case "lab":
+      return <Atom className="h-5 w-5 text-amber-600 dark:text-amber-400" />;
   }
 }
 
 export default function ResearchProjects() {
+  const [activeTab, setActiveTab] = useState<ProjectCategory>("all");
+
+  const filteredProjects =
+    activeTab === "all"
+      ? PROJECTS
+      : PROJECTS.filter((p) => p.categoryType === activeTab);
+
   return (
-    <section id="research" className="relative px-6 py-24 sm:py-28">
+    <section id="research" className="relative px-6 py-24 sm:py-32 overflow-hidden">
+      {/* Apple-style background radial radiance */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-1/4 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-gradient-to-tr from-sky-500/10 via-indigo-500/5 to-transparent blur-[120px] rounded-full"
+      />
+
       <div className="relative z-10 mx-auto w-full max-w-5xl">
-        {/* Section Header */}
-        <div className="mb-12 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-          <div>
-            <div className="flex items-center gap-2 mb-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#0A47B8] dark:bg-[#89A8C9]" />
-              <p className="text-xs font-mono font-medium uppercase tracking-[0.2em] text-[#0A47B8] dark:text-[#89A8C9]">
-                Scientific Research & Development
-              </p>
-            </div>
-            <h2 className="text-3xl font-semibold tracking-tight md:text-4xl text-foreground">
-              Research & Project
-            </h2>
+        {/* Apple HIG Header Block */}
+        <div className="flex flex-col items-center text-center mb-12 sm:mb-16">
+          <div className="inline-flex items-center gap-2 rounded-full border border-sky-500/20 bg-sky-500/10 dark:bg-sky-400/10 px-3.5 py-1 text-[11px] font-medium tracking-wider uppercase text-sky-700 dark:text-sky-300 backdrop-blur-md mb-4">
+            <Sparkles className="h-3 w-3 text-sky-500" />
+            <span>Scientific Research & Engineering</span>
           </div>
-          <p className="text-sm leading-relaxed text-foreground/50 max-w-md">
-            Experimental materials physics, international conference presentations, structural characterization, and hardware instrumentation prototypes.
+
+          <h2 className="text-3xl sm:text-5xl font-semibold tracking-[-0.03em] text-foreground">
+            Research & Projects
+          </h2>
+          <p className="mt-4 max-w-2xl text-sm sm:text-base leading-relaxed text-foreground/60 dark:text-foreground/50">
+            Experimental materials physics, corrosion barrier coatings, structural characterization,
+            and IoT telemetry prototypes developed through rigorous empirical methodology.
           </p>
+
+          {/* Apple Segmented Control */}
+          <div className="mt-8 p-1.5 rounded-full border border-black/[0.08] dark:border-white/[0.12] bg-black/[0.04] dark:bg-white/[0.06] backdrop-blur-xl flex flex-wrap items-center justify-center gap-1.5 shadow-[inset_0_1px_2px_rgba(0,0,0,0.06)]">
+            {CATEGORIES.map((cat) => {
+              const isActive = activeTab === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => setActiveTab(cat.id)}
+                  className={`relative rounded-full px-4 py-1.5 text-xs font-semibold tracking-tight transition-all duration-200 ${
+                    isActive
+                      ? "bg-white text-slate-900 shadow-md border border-black/10 dark:bg-[#1e2430] dark:text-white dark:border-white/15 dark:shadow-[0_2px_12px_rgba(0,0,0,0.5)]"
+                      : "text-foreground/60 hover:text-foreground hover:bg-black/[0.03] dark:hover:bg-white/[0.04]"
+                  }`}
+                >
+                  {cat.label}
+                </button>
+              );
+            })}
+          </div>
         </div>
 
-        {/* Project Cards List */}
-        <div className="space-y-6">
-          {RESEARCH_PROJECTS.map((proj, idx) => (
-            <div
-              key={proj.id}
-              className="group relative rounded-2xl border border-foreground/[0.08] bg-foreground/[0.015] p-6 sm:p-8 transition-all duration-300 hover:border-[#0A47B8]/30 hover:bg-foreground/[0.025] hover:shadow-[0_8px_30px_rgba(10,71,184,0.08)] dark:hover:border-[#52769B]/40 dark:hover:shadow-[0_8px_30px_rgba(82,118,155,0.12)]"
-            >
-              {/* Subtle accent border glow on top */}
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute -top-px left-8 right-8 h-px bg-gradient-to-r from-transparent via-[#0A47B8]/20 dark:via-[#89A8C9]/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-              />
+        {/* Projects Stream */}
+        <div className="space-y-8">
+          {filteredProjects.map((project) => {
+            const isFlagship = project.isFlagship;
 
-              <div className="flex flex-col sm:flex-row sm:items-start gap-6">
-                {/* Left: Index + Themed Icon */}
-                <div className="flex items-center sm:flex-col gap-4 sm:gap-3 sm:w-[72px] shrink-0">
-                  <span className="hidden sm:block text-[11px] font-mono text-foreground/25 tabular-nums text-center w-full">
-                    {String(idx + 1).padStart(2, "0")}
-                  </span>
-                  <div className="relative flex h-12 w-12 sm:h-14 sm:w-14 shrink-0 items-center justify-center rounded-[16px] border border-foreground/[0.08] bg-white dark:bg-[#0c121e] shadow-sm transition-transform duration-300 group-hover:scale-105">
-                    <ProjectIcon type={proj.icon} />
-                  </div>
-                </div>
+            if (isFlagship) {
+              return (
+                <div
+                  key={project.id}
+                  className="group relative rounded-[28px] border border-black/[0.08] dark:border-white/[0.12] bg-white/70 dark:bg-[#0e1219]/75 backdrop-blur-2xl p-7 sm:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.05)] dark:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.6)] transition-all duration-300 hover:shadow-[0_25px_60px_rgba(14,165,233,0.12)] hover:border-sky-500/30 overflow-hidden"
+                >
+                  {/* Apple Specular Top Rim */}
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-x-0 top-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/80 dark:via-white/30 to-transparent"
+                  />
 
-                {/* Right: Content */}
-                <div className="flex-1 min-w-0">
-                  {/* Top Bar: Category, Role & Period */}
-                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
-                    <div className="flex-1 min-w-0">
-                      <div className="flex flex-wrap items-center gap-2 mb-2">
-                        <span className="inline-flex items-center rounded-md border border-[#0A47B8]/20 dark:border-[#52769B]/30 bg-[#0A47B8]/5 dark:bg-[#52769B]/10 px-2.5 py-0.5 text-[11px] font-medium tracking-wide text-[#0A47B8] dark:text-[#89A8C9]">
-                          {proj.category}
-                        </span>
-                        {proj.role && (
-                          <span className="text-[12px] font-medium text-foreground/50">
-                            {proj.role}
-                          </span>
-                        )}
+                  {/* Header Row: Window Titlebar Aesthetic */}
+                  <div className="flex flex-wrap items-center justify-between gap-4 border-b border-black/[0.05] dark:border-white/[0.06] pb-5">
+                    <div className="flex items-center gap-3">
+                      {/* Apple Window Traffic Dots */}
+                      <div className="hidden sm:flex items-center gap-1.5 mr-1 opacity-70">
+                        <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
+                        <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
+                        <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
                       </div>
-
-                      {/* Main Title */}
-                      <h3 className="text-[17px] sm:text-xl font-semibold tracking-[-0.015em] text-foreground leading-snug">
-                        {proj.title}
-                      </h3>
-                    </div>
-
-                    {/* Period Badge */}
-                    <div className="self-start shrink-0 inline-flex items-center gap-1.5 rounded-full border border-foreground/[0.08] bg-foreground/[0.03] px-3 py-1 text-[11px] font-medium tabular-nums text-foreground/50 whitespace-nowrap">
-                      <Calendar className="h-3 w-3 text-foreground/40" />
-                      {proj.period}
-                    </div>
-                  </div>
-
-                  {/* Optional Key Metric Highlight */}
-                  {proj.metricHighlight && (
-                    <div className="mt-4 inline-flex items-center gap-3 rounded-xl border border-emerald-500/25 bg-emerald-500/10 dark:bg-emerald-500/15 px-3.5 py-2 text-xs">
-                      <div className="flex items-center gap-1 font-semibold text-emerald-700 dark:text-emerald-400">
-                        <TrendingDown className="h-4 w-4" />
-                        <span>{proj.metricHighlight.value}</span>
+                      <div className="flex items-center gap-2 rounded-full border border-sky-500/20 bg-sky-500/10 px-3 py-1 text-xs font-semibold text-sky-700 dark:text-sky-300">
+                        <CategoryIcon type={project.icon} />
+                        <span>{project.categoryTag}</span>
                       </div>
-                      <span className="text-emerald-900/80 dark:text-emerald-200/80">
-                        {proj.metricHighlight.label}
+                      <span className="text-xs font-medium text-foreground/50">
+                        {project.role}
                       </span>
                     </div>
-                  )}
 
-                  {/* Bullet Points */}
-                  <div className="mt-5 space-y-2.5 border-t border-foreground/[0.06] pt-5">
-                    {proj.bullets.map((bullet, bi) => (
-                      <div key={bi} className="flex gap-3">
-                        <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#0A47B8] dark:bg-[#89A8C9]" />
-                        <p className="text-[13px] sm:text-sm leading-relaxed text-foreground/60">
-                          {bullet}
-                        </p>
-                      </div>
-                    ))}
+                    <div className="inline-flex items-center gap-1.5 rounded-full border border-black/[0.06] dark:border-white/[0.08] bg-black/[0.02] dark:bg-white/[0.03] px-3.5 py-1 text-xs font-medium text-foreground/60 tabular-nums">
+                      <Calendar className="h-3.5 w-3.5 text-foreground/40" />
+                      {project.period}
+                    </div>
                   </div>
 
-                  {/* Tags and Optional Link */}
-                  <div className="mt-6 flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-foreground/[0.04]">
-                    <div className="flex flex-wrap items-center gap-1.5">
-                      <Layers className="h-3.5 w-3.5 text-foreground/30 mr-1" />
-                      {proj.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="rounded-md border border-foreground/[0.06] bg-foreground/[0.02] px-2 py-0.5 text-[11px] font-mono text-foreground/50"
-                        >
-                          {tag}
-                        </span>
-                      ))}
+                  {/* Title & Core Apple Metric Banner */}
+                  <div className="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    <div className="lg:col-span-7">
+                      <h3 className="text-2xl sm:text-3xl font-semibold tracking-[-0.025em] text-foreground leading-snug">
+                        {project.title}
+                      </h3>
+
+                      <p className="mt-3 text-sm leading-relaxed text-foreground/65 dark:text-foreground/60">
+                        A novel corrosion-resistant protective coating engineered for low-carbon steel
+                        in marine and industrial settings, verified through advanced electrochemical,
+                        mechanical, and morphological characterization.
+                      </p>
+
+                      {/* Bullet Highlights */}
+                      <div className="mt-6 space-y-3">
+                        {project.bullets.map((bullet, idx) => (
+                          <div key={idx} className="flex items-start gap-3">
+                            <CheckCircle2 className="h-4 w-4 shrink-0 text-sky-600 dark:text-sky-400 mt-0.5" />
+                            <p className="text-xs sm:text-sm leading-relaxed text-foreground/75 dark:text-foreground/70">
+                              {bullet}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
                     </div>
 
-                    {proj.link && (
-                      <a
-                        href={proj.link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-xs font-medium text-[#0A47B8] dark:text-[#89A8C9] hover:underline transition-all"
+                    {/* Apple Metric Card */}
+                    <div className="lg:col-span-5 rounded-[22px] border border-emerald-500/20 bg-gradient-to-br from-emerald-500/[0.08] via-emerald-500/[0.03] to-transparent p-6 dark:from-emerald-500/[0.12] dark:via-emerald-500/[0.04]">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[11px] font-semibold uppercase tracking-wider text-emerald-800 dark:text-emerald-300">
+                          Primary Research Metric
+                        </span>
+                        <div className="flex items-center gap-1 text-xs font-medium text-emerald-700 dark:text-emerald-400">
+                          <TrendingDown className="h-4 w-4" />
+                          <span>Tested & Verified</span>
+                        </div>
+                      </div>
+
+                      <div className="mt-3 flex items-baseline gap-2">
+                        <span className="text-4xl sm:text-5xl font-bold tracking-tight text-emerald-700 dark:text-emerald-400">
+                          {project.metric?.value}
+                        </span>
+                        <span className="text-sm font-semibold text-foreground/80">
+                          {project.metric?.label}
+                        </span>
+                      </div>
+                      <p className="mt-2 text-xs text-foreground/65 dark:text-foreground/60 leading-relaxed">
+                        {project.metric?.sublabel}
+                      </p>
+
+                      {/* Micro stats */}
+                      {project.highlights && (
+                        <div className="mt-5 grid grid-cols-2 gap-3 border-t border-emerald-500/15 pt-4">
+                          {project.highlights.map((h, i) => (
+                            <div key={i}>
+                              <div className="text-xs font-semibold text-foreground">
+                                {h.stat}
+                              </div>
+                              <div className="text-[11px] text-foreground/50 leading-tight mt-0.5">
+                                {h.caption}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Direct CTA Link */}
+                      {project.link && (
+                        <div className="mt-6 pt-4 border-t border-emerald-500/15">
+                          <a
+                            href={project.link.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-sky-500/30 bg-sky-600 dark:bg-sky-500 px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-sky-700 dark:hover:bg-sky-400 hover:shadow-md transition-all active:scale-[0.98]"
+                          >
+                            <span>{project.link.label}</span>
+                            <ArrowUpRight className="h-3.5 w-3.5" />
+                          </a>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Characterization Tags */}
+                  <div className="mt-8 pt-5 border-t border-black/[0.05] dark:border-white/[0.06] flex flex-wrap items-center gap-2">
+                    <span className="text-xs font-medium text-foreground/40 mr-1 flex items-center gap-1.5">
+                      <Layers className="h-3.5 w-3.5" />
+                      Testing Protocols:
+                    </span>
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full border border-black/[0.06] dark:border-white/[0.08] bg-black/[0.02] dark:bg-white/[0.03] px-3 py-1 text-xs font-medium text-foreground/70"
                       >
-                        <span>{proj.link.label}</span>
-                        <ExternalLink className="h-3.5 w-3.5" />
-                      </a>
-                    )}
+                        {tag}
+                      </span>
+                    ))}
                   </div>
                 </div>
+              );
+            }
+
+            // Secondary Bento Cards
+            return (
+              <div
+                key={project.id}
+                className="group relative rounded-[24px] border border-black/[0.08] dark:border-white/[0.1] bg-white/60 dark:bg-[#0e1219]/60 backdrop-blur-xl p-6 sm:p-8 shadow-[0_12px_40px_rgba(0,0,0,0.04)] dark:shadow-[0_15px_40px_rgba(0,0,0,0.5)] transition-all duration-300 hover:border-foreground/20 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] overflow-hidden"
+              >
+                {/* Specular Rim */}
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/50 dark:via-white/20 to-transparent"
+                />
+
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                  <div>
+                    <div className="flex flex-wrap items-center gap-2 mb-2">
+                      <div className="inline-flex items-center gap-1.5 rounded-full border border-black/[0.06] dark:border-white/[0.08] bg-black/[0.02] dark:bg-white/[0.04] px-3 py-0.5 text-xs font-medium text-foreground/75">
+                        <CategoryIcon type={project.icon} />
+                        <span>{project.categoryTag}</span>
+                      </div>
+                      <span className="text-xs font-medium text-foreground/50">
+                        {project.role}
+                      </span>
+                    </div>
+
+                    <h3 className="text-lg sm:text-xl font-semibold tracking-[-0.015em] text-foreground">
+                      {project.title}
+                    </h3>
+                  </div>
+
+                  <div className="self-start shrink-0 inline-flex items-center gap-1.5 rounded-full border border-black/[0.06] dark:border-white/[0.08] bg-black/[0.02] dark:bg-white/[0.03] px-3 py-1 text-xs font-medium text-foreground/60 tabular-nums">
+                    <Calendar className="h-3 w-3 text-foreground/40" />
+                    {project.period}
+                  </div>
+                </div>
+
+                {/* Bullets */}
+                <div className="mt-5 space-y-2.5">
+                  {project.bullets.map((bullet, bi) => (
+                    <div key={bi} className="flex items-start gap-3">
+                      <div className="mt-1.5 h-1.5 w-1.5 rounded-full bg-foreground/40 shrink-0" />
+                      <p className="text-xs sm:text-sm leading-relaxed text-foreground/70 dark:text-foreground/65">
+                        {bullet}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Tags */}
+                <div className="mt-6 pt-4 border-t border-black/[0.04] dark:border-white/[0.05] flex flex-wrap items-center gap-1.5">
+                  {project.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-md border border-black/[0.06] dark:border-white/[0.07] bg-black/[0.02] dark:bg-white/[0.02] px-2.5 py-0.5 text-[11px] font-medium text-foreground/60"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
