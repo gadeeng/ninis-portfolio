@@ -98,15 +98,16 @@ export default function GradientText({
   };
 
   return (
-    <motion.div
-      className={`animated-gradient-text ${showBorder ? 'with-border' : ''} ${className}`}
+    <motion.span
+      suppressHydrationWarning
+      className={`animated-gradient-text inline-flex ${showBorder ? 'with-border' : ''} ${className}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {showBorder && <motion.div className="gradient-overlay" style={{ ...gradientStyle, backgroundPosition }} />}
-      <motion.div className="text-content" style={{ ...gradientStyle, backgroundPosition }}>
+      {showBorder && <motion.span suppressHydrationWarning className="gradient-overlay" style={{ ...gradientStyle, backgroundPosition }} />}
+      <motion.span suppressHydrationWarning className="text-content" style={{ ...gradientStyle, backgroundPosition }}>
         {children}
-      </motion.div>
-    </motion.div>
+      </motion.span>
+    </motion.span>
   );
 }

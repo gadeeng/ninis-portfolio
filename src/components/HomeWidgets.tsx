@@ -187,8 +187,8 @@ function ClockWidget() {
         <line x1="50" y1="56" x2="50" y2="14" transform={`rotate(${secDeg} 50 50)`} stroke="#C49A76" strokeWidth="1.2" strokeLinecap="round" />
         <circle cx="50" cy="50" r="2.5" fill="#C49A76" />
       </svg>
-      <span className="mt-3 text-2xl font-semibold tabular-nums tracking-tight">{digital}</span>
-      <span className="text-xs text-foreground/60">
+      <span suppressHydrationWarning className="mt-3 text-2xl font-semibold tabular-nums tracking-tight">{digital}</span>
+      <span suppressHydrationWarning className="text-xs text-foreground/60">
         {now?.toLocaleDateString("en-US", { weekday: "long", month: "short", day: "numeric" })}
       </span>
     </div>

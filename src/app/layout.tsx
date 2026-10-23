@@ -16,7 +16,7 @@ const uncial = Uncial_Antiqua({
 });
 
 export const viewport: Viewport = {
-  themeColor: "#233B5D",
+  themeColor: "#0A47B8",
 };
 
 export const metadata: Metadata = {
@@ -55,7 +55,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
       </head>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased" suppressHydrationWarning>{children}</body>
     </html>
   );
 }

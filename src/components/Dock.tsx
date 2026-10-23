@@ -23,6 +23,17 @@ const DEFAULT_CONFIG = {
     effectWidth: 220
 };
 
+const getInitialPositions = (count: number, baseIconSize: number, baseSpacing: number): number[] => {
+    let currentX = 0;
+    const positions: number[] = [];
+    for (let i = 0; i < count; i++) {
+        const centerX = currentX + (baseIconSize / 2);
+        currentX += baseIconSize + baseSpacing;
+        positions.push(centerX);
+    }
+    return positions;
+};
+
 const MacOSDock: React.FC<MacOSDockProps> = ({
     apps,
     onAppClick,
@@ -30,10 +41,18 @@ const MacOSDock: React.FC<MacOSDockProps> = ({
     className = '',
     tooltipPosition = 'top'
 }) => {
+    // Always start with DEFAULT_CONFIG so SSR and initial client hydration match 100%
+    const [config, setConfig] = useState(DEFAULT_CONFIG);
+    const { baseIconSize, maxScale, effectWidth } = config;
+    const minScale = 1.0;
+    const baseSpacing = Math.max(4, baseIconSize * 0.08);
+
     const [mouseX, setMouseX] = useState<number | null>(null);
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-    const [currentScales, setCurrentScales] = useState<number[]>(apps.map(() => 1));
-    const [currentPositions, setCurrentPositions] = useState<number[]>([]);
+    const [currentScales, setCurrentScales] = useState<number[]>(() => apps.map(() => 1));
+    const [currentPositions, setCurrentPositions] = useState<number[]>(() =>
+        getInitialPositions(apps.length, DEFAULT_CONFIG.baseIconSize, Math.max(4, DEFAULT_CONFIG.baseIconSize * 0.08))
+    );
     const dockRef = useRef<HTMLDivElement>(null);
     const iconRefs = useRef<(HTMLDivElement | null)[]>([]);
     const animationFrameRef = useRef<number | undefined>(undefined);
@@ -69,12 +88,6 @@ const MacOSDock: React.FC<MacOSDockProps> = ({
             return DEFAULT_CONFIG;
         }
     }, []);
-
-    // Always start with DEFAULT_CONFIG so SSR and initial client hydration match 100%
-    const [config, setConfig] = useState(DEFAULT_CONFIG);
-    const { baseIconSize, maxScale, effectWidth } = config;
-    const minScale = 1.0;
-    const baseSpacing = Math.max(4, baseIconSize * 0.08);
 
     // Sync responsive config on client mount and window resize
     useEffect(() => {
@@ -291,6 +304,7 @@ const MacOSDock: React.FC<MacOSDockProps> = ({
                     return (
                         <div
                             key={app.id}
+                            suppressHydrationWarning
                             ref={(el) => { iconRefs.current[index] = el; }}
                             className="absolute cursor-pointer flex flex-col items-center justify-end"
                             aria-label={app.name}
