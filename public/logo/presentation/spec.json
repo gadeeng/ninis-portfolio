@@ -1,0 +1,59 @@
+{
+  "brand": "Nisrina Zalfa Qarirah",
+  "tagline": "Materials Physics · Personal Brand & Research Identity",
+  "brief": "A bold, progressive, and dynamic personal identity for Nisrina Zalfa Qarirah, specializing in Materials Physics. The identity embodies potential energy fields, lattice stability, and high-precision scientific authority.",
+  "adjectives": [
+    "bold",
+    "progresif",
+    "dinamis",
+    "presisi",
+    "ilmiah"
+  ],
+  "criteria": "Success: instant legibility at 16 px, mathematically pure geometry, distinct from generic science clipart, embodies potential energy and field resonance.",
+  "industry": "education",
+  "mockups": [
+    "badge",
+    "business-card",
+    "website",
+    "readme",
+    "social",
+    "sticker"
+  ],
+  "nav": [
+    "Research",
+    "Publications",
+    "Materials Lab",
+    "CV",
+    "Contact"
+  ],
+  "brand_color": "#0A47B8",
+  "tile_color": "#0A47B8",
+  "greyscale": false,
+  "final": true,
+  "designer": "Senior Identity Designer",
+  "round": "Final Delivery",
+  "concepts": [
+    {
+      "name": "Potential Flux",
+      "symbol": "../master/symbol.svg",
+      "lockup": "../master/lockup-horizontal.svg",
+      "stacked": "../master/lockup-stacked.svg",
+      "symbol_on_tile": "../master/symbol-color.svg",
+      "lockup_on_tile": "../master/lockup-horizontal-color.svg",
+      "stacked_on_tile": "../master/lockup-stacked-color.svg",
+      "idea": "Two outward-bowing curves forming the letter N, inspired by the potential well and magnetic field boundaries in condensed matter physics.",
+      "rationale": [
+        "Symmetric outward curves represent potential energy barrier and structural equilibrium",
+        "Bold stroke weight achieves 100/100 production score and survives reduction to 16 px",
+        "Seamless carved geometry without seams, overlapping artifacts, or live text",
+        "Harmonious balance between scientific precision and dynamic momentum"
+      ]
+    }
+  ],
+  "recommendation": "Potential Flux provides the most authoritative, balanced, and timeless identity for academic publishing, lab branding, and personal digital presence.",
+  "next_steps": [
+    "Integrate web icons and manifest into academic portfolio / personal site",
+    "Use horizontal lockup for research paper headers, CV, and conference presentation slides",
+    "Use symbol-square and favicon for LinkedIn, GitHub, Google Scholar, and ORCID profiles"
+  ]
+}

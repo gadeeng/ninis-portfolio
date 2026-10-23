@@ -1,5 +1,5 @@
 {
-  "name": "Nisrina Zalfa Qarirah Logo",
+  "name": "Nisrina Zalfa Qarirah Symbol",
   "icons": [
     {
       "src": "/icon-192.png",
@@ -18,7 +18,7 @@
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#233B5D",
-  "background_color": "#233B5D",
+  "theme_color": "#0A47B8",
+  "background_color": "#0A47B8",
   "display": "standalone"
 }

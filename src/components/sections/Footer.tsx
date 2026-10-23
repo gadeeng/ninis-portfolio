@@ -113,49 +113,13 @@ function NisrinaSymbolIcon({ size = 120, className = "" }: { size?: number; clas
       viewBox="0 0 256 256"
       width={size}
       height={size}
-      fill="none"
+      fill="currentColor"
       aria-hidden="true"
       className={className}
     >
-      {/* Hexagonal unit cell boundary (HCP crystal system) */}
-      <path
-        stroke="currentColor"
-        strokeWidth="15"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M 96 40 L 160 40 L 210.81 128 L 160 216 L 96 216 L 45.19 128 Z"
-      />
-      {/* Q anchor tail extending at 45° */}
-      <path
-        stroke="currentColor"
-        strokeWidth="15"
-        strokeLinecap="round"
-        d="M 160 216 L 188 244"
-      />
-      {/* Left upright of N */}
-      <path
-        stroke="currentColor"
-        strokeWidth="15"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M 96 40 L 96 216"
-      />
-      {/* Central N/Z diagonal */}
-      <path
-        stroke="currentColor"
-        strokeWidth="15"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M 96 40 L 160 216"
-      />
-      {/* Right upright of N */}
-      <path
-        stroke="currentColor"
-        strokeWidth="15"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M 160 40 L 160 216"
-      />
+      <title>Nisrina Zalfa Qarirah Symbol</title>
+      {/* Monogram Letterform N (Potential Flux) */}
+      <path d="M 68 38 L 102 38 L 162 164 C 174 124 174 80 154 38 L 188 38 C 222 90 222 166 188 218 L 154 218 L 94 92 C 82 132 82 176 102 218 L 68 218 C 34 166 34 90 68 38 Z" />
     </svg>
   );
 }
@@ -171,7 +135,7 @@ export default function Footer() {
       <div className="mb-6 flex items-center justify-center transition-transform duration-500 hover:scale-105">
         <NisrinaSymbolIcon
           size={140}
-          className="h-28 w-28 text-[var(--logo-symbol)] drop-shadow-[0_8px_32px_rgba(82,118,155,0.4)] md:h-36 md:w-36"
+          className="h-28 w-28 text-[var(--logo-symbol)] drop-shadow-[0_8px_32px_rgba(10,71,184,0.35)] md:h-36 md:w-36"
         />
       </div>
       <p className="mt-2 text-3xl font-semibold md:text-5xl">Nisrina Zalfa Qarirah.</p>

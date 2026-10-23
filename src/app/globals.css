@@ -25,7 +25,7 @@ html.light {
   --dock-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 252, 0.98));
   --dock-border: rgba(15, 23, 42, 0.15);
   --shadow-glow: 0 20px 60px -20px rgba(15, 23, 42, 0.08);
-  --logo-symbol: #233b5d;
+  --logo-symbol: #0a47b8;
 }
 
 /* ── Light Mode High-Contrast Typography & Content Readability ── */
