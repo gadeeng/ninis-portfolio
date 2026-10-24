@@ -1499,7 +1499,8 @@ export default function AeroShards({
 
       const simulate = (s: typeof settings, dt: number, reduced: boolean) => {
         const aspect = output.size[0] / Math.max(output.size[1], 1);
-        const closed = buildPaths(aspect);
+        const pathAspect = Math.max(aspect, 1.0);
+        const closed = buildPaths(pathAspect);
         const introOn = s.intro && !reduced;
         const introAge = state.introAt < 0 ? 0 : state.clock - state.introAt;
         const hover = s.mouseInteraction && !reduced ? state.presence * s.mouseStrength : 0;

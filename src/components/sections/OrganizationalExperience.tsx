@@ -2,20 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import {
-  Users,
-  Calendar,
-  MapPin,
-  Sparkles,
-  TrendingUp,
-  Palette,
-  Camera,
-  Layers,
-  ExternalLink,
-  X,
-  Maximize2,
-  Video,
-} from "lucide-react";
+import { ExternalLink, X, Maximize2 } from "lucide-react";
 
 function InstagramIcon({ className = "h-3 w-3" }: { className?: string }) {
   return (
@@ -49,10 +36,29 @@ function YouTubeIcon({ className = "h-3 w-3" }: { className?: string }) {
   );
 }
 
+function TikTokIcon({ className = "h-3 w-3" }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.82 4.49 6.27 6.27 0 0 0 1.96-4.49V8.62a8.28 8.28 0 0 0 5.25 1.86v-3.48a4.83 4.83 0 0 1-1.44-.31z" />
+    </svg>
+  );
+}
+
 interface OrgPhoto {
   src: string;
   caption: string;
   tag: string;
+}
+
+interface OrgChannel {
+  platform: "instagram" | "youtube" | "tiktok";
+  label: string;
+  url?: string;
 }
 
 interface OrganizationEntry {
@@ -63,11 +69,8 @@ interface OrganizationEntry {
   location: string;
   logo?: string;
   badge?: string;
-  channel?: {
-    platform: "instagram" | "youtube" | "tiktok";
-    label: string;
-    url?: string;
-  };
+  channel?: OrgChannel;
+  channels?: OrgChannel[];
   metrics?: {
     value: string;
     label: string;
@@ -86,11 +89,18 @@ const ORGANIZATIONS: OrganizationEntry[] = [
     location: "Surabaya, Indonesia",
     logo: "/Logo Unair.png",
     badge: "Leadership & Media Strategy",
-    channel: {
-      platform: "instagram",
-      label: "@himafiunair",
-      url: "https://instagram.com/himafiunair",
-    },
+    channels: [
+      {
+        platform: "instagram",
+        label: "@himafiunair",
+        url: "https://instagram.com/himafiunair",
+      },
+      {
+        platform: "tiktok",
+        label: "TikTok: @himafiunair",
+        url: "https://www.tiktok.com/@himafiunair?is_from_webapp=1&sender_device=pc",
+      },
+    ],
     metrics: {
       value: "+45%",
       label: "Instagram Engagement Growth within 6 Months",
@@ -162,11 +172,12 @@ const ORGANIZATIONS: OrganizationEntry[] = [
     role: "Staff of Media and Information",
     period: "Feb 2023 – Jan 2024",
     location: "Surabaya, Indonesia",
+    logo: "/kompres.jpg",
     badge: "Audiovisual & Medinfo",
     channel: {
       platform: "youtube",
       label: "YouTube: Komunitas Prestasi",
-      url: "https://www.youtube.com/@komunitasprestasiunair",
+      url: "https://www.youtube.com/@komunitasprestasi905",
     },
     metrics: {
       value: "20+ Works",
@@ -246,220 +257,167 @@ const ORGANIZATIONS: OrganizationEntry[] = [
   },
 ];
 
-const OVERALL_STATS = [
-  { value: "50+", label: "Brand Assets Produced", icon: Palette },
-  { value: "+45%", label: "IG Engagement Growth", icon: TrendingUp },
-  { value: "5 Members", label: "Design Team Supervised", icon: Users },
-  { value: "20+ Sets", label: "Merch & Event Branding", icon: Layers },
-];
-
 export default function OrganizationalExperience() {
   const [selectedPhoto, setSelectedPhoto] = useState<OrgPhoto | null>(null);
 
   return (
-    <section id="organization" className="relative px-6 py-24 sm:py-32 overflow-hidden">
-      {/* Apple-style background radial glow */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute right-1/2 top-1/3 translate-x-1/2 -translate-y-1/2 w-[650px] h-[450px] bg-gradient-to-bl from-indigo-500/10 via-sky-500/5 to-transparent blur-[140px] rounded-full"
-      />
-
+    <section id="organization" className="relative px-6 py-24 sm:py-28">
       <div className="relative z-10 mx-auto w-full max-w-5xl">
-        {/* Apple HIG Header Block */}
-        <div className="flex flex-col items-center text-center mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-2 rounded-full border border-indigo-500/20 bg-indigo-500/10 dark:bg-indigo-400/10 px-3.5 py-1 text-[11px] font-medium tracking-wider uppercase text-indigo-700 dark:text-indigo-300 backdrop-blur-md mb-4">
-            <Sparkles className="h-3 w-3 text-indigo-500" />
-            <span>Leadership & Creative Direction</span>
-          </div>
+        <h2 className="mb-10 text-3xl font-semibold tracking-tight md:text-4xl text-foreground">
+          Organizational Experience
+        </h2>
 
-          <h2 className="text-3xl sm:text-5xl font-semibold tracking-[-0.03em] text-foreground">
-            Organizational Experience
-          </h2>
-          <p className="mt-4 max-w-2xl text-sm sm:text-base leading-relaxed text-foreground/60 dark:text-foreground/50">
-            Leading creative media teams, driving digital growth strategies, and directing visual
-            identities across student government, university forums, and academic organizations.
-          </p>
-
-          {/* Apple HIG Stats Metric Strip */}
-          <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-3 w-full max-w-4xl">
-            {OVERALL_STATS.map((stat, i) => {
-              const Icon = stat.icon;
-              return (
-                <div
-                  key={i}
-                  className="rounded-2xl border border-black/[0.06] dark:border-white/[0.08] bg-white/60 dark:bg-[#121620]/60 backdrop-blur-xl p-4 text-center shadow-[0_4px_20px_rgba(0,0,0,0.03)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.4)]"
-                >
-                  <div className="flex items-center justify-center mb-1.5 text-indigo-600 dark:text-indigo-400">
-                    <Icon className="h-4 w-4" />
-                  </div>
-                  <div className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">
-                    {stat.value}
-                  </div>
-                  <div className="text-[11px] font-medium text-foreground/50 mt-0.5">
-                    {stat.label}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Organizations List */}
-        <div className="space-y-8">
-          {ORGANIZATIONS.map((org) => (
-            <div
-              key={org.id}
-              className="group relative rounded-[28px] border border-black/[0.08] dark:border-white/[0.1] bg-white/70 dark:bg-[#0e1219]/75 backdrop-blur-2xl p-6 sm:p-9 shadow-[0_15px_45px_rgba(0,0,0,0.04)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.55)] transition-all duration-300 hover:border-indigo-500/30 hover:shadow-[0_25px_60px_rgba(99,102,241,0.08)] overflow-hidden"
-            >
-              {/* Apple Specular Top Rim */}
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/70 dark:via-white/25 to-transparent"
-              />
-
-              {/* Card Header */}
-              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-5 border-b border-black/[0.05] dark:border-white/[0.06] pb-6">
-                <div className="flex items-start gap-4">
-                  {/* Logo or Apple Monogram Emblem */}
-                  <div className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-black/[0.08] dark:border-white/[0.1] bg-white dark:bg-[#161a24] shadow-sm overflow-hidden p-2">
+        <div className="border-t border-foreground/[0.08]">
+          {ORGANIZATIONS.map((org, idx) => (
+            <div key={org.id} className="border-b border-foreground/[0.08]">
+              <div className="flex flex-col sm:flex-row sm:items-start gap-6 py-10 sm:py-12 group -mx-4 px-4 transition-colors hover:bg-foreground/[0.015] rounded-xl">
+                {/* Left: index + logo */}
+                <div className="flex sm:flex-col items-center gap-4 sm:gap-3 sm:w-[72px] shrink-0">
+                  <span className="hidden sm:block text-[11px] font-mono text-foreground/20 tabular-nums text-center w-full">
+                    {String(idx + 1).padStart(2, "0")}
+                  </span>
+                  <div className="relative h-12 w-12 sm:h-14 sm:w-14 shrink-0 overflow-hidden rounded-[16px] border border-foreground/[0.08] bg-white shadow-sm">
                     {org.logo ? (
                       <Image
                         src={org.logo}
-                        alt={org.organization}
-                        width={48}
-                        height={48}
-                        className="object-contain"
+                        alt={`${org.organization} logo`}
+                        fill
+                        sizes="56px"
+                        className="object-contain p-1.5"
                       />
                     ) : (
-                      <div className="h-full w-full rounded-xl bg-gradient-to-tr from-indigo-500 to-sky-400 flex items-center justify-center text-white font-bold text-sm shadow-inner">
+                      <div className="flex h-full w-full items-center justify-center bg-gradient-to-tr from-indigo-500 to-sky-400 text-sm font-bold text-white">
                         KP
                       </div>
                     )}
                   </div>
+                </div>
 
-                  <div>
-                    <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                      <span className="rounded-full border border-indigo-500/20 bg-indigo-500/10 px-2.5 py-0.5 text-[11px] font-semibold text-indigo-700 dark:text-indigo-300">
-                        {org.badge || "Organization"}
-                      </span>
-                      {org.channel && (
-                        <a
-                          href={org.channel.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 rounded-full border border-black/[0.06] dark:border-white/[0.08] bg-black/[0.02] dark:bg-white/[0.04] px-2.5 py-0.5 text-[11px] font-medium text-foreground/70 hover:text-foreground hover:bg-black/[0.05] transition-colors"
-                        >
-                          {org.channel.platform === "youtube" ? (
-                            <YouTubeIcon className="h-3 w-3 text-red-500" />
-                          ) : (
-                            <InstagramIcon className="h-3 w-3 text-pink-500" />
-                          )}
-                          <span>{org.channel.label}</span>
-                          <ExternalLink className="h-2.5 w-2.5 opacity-60" />
-                        </a>
-                      )}
+                {/* Right: content */}
+                <div className="flex-1 min-w-0">
+                  {/* Header */}
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[11px] font-medium uppercase tracking-[0.15em] text-foreground/35 mb-1.5">
+                        {org.organization}
+                      </p>
+                      <h3 className="text-[17px] sm:text-lg font-semibold tracking-[-0.015em] text-foreground leading-snug">
+                        {org.role}
+                      </h3>
+                      <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-0.5">
+                        <span className="text-[12px] text-foreground/40">
+                          {org.location}
+                        </span>
+                        {org.badge && (
+                          <>
+                            <span className="text-foreground/20 text-[10px]">·</span>
+                            <span className="text-[12px] text-foreground/40">
+                              {org.badge}
+                            </span>
+                          </>
+                        )}
+                        {(() => {
+                          const channelsList =
+                            org.channels ?? (org.channel ? [org.channel] : []);
+                          return channelsList.map((ch, ci) => (
+                            <React.Fragment key={ci}>
+                              <span className="text-foreground/20 text-[10px]">·</span>
+                              <a
+                                href={ch.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1 text-[12px] text-foreground/40 transition-colors hover:text-foreground/70"
+                              >
+                                {ch.platform === "youtube" ? (
+                                  <YouTubeIcon className="h-3 w-3" />
+                                ) : ch.platform === "tiktok" ? (
+                                  <TikTokIcon className="h-3 w-3" />
+                                ) : (
+                                  <InstagramIcon className="h-3 w-3" />
+                                )}
+                                {ch.label}
+                                <ExternalLink className="h-2.5 w-2.5 opacity-60" />
+                              </a>
+                            </React.Fragment>
+                          ));
+                        })()}
+                      </div>
                     </div>
-
-                    <h3 className="text-xl sm:text-2xl font-semibold tracking-[-0.02em] text-foreground">
-                      {org.organization}
-                    </h3>
-                    <p className="text-sm font-medium text-foreground/60 dark:text-foreground/55 mt-0.5">
-                      {org.role}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Right metadata badge */}
-                <div className="flex flex-col sm:items-end gap-1.5 shrink-0 self-start">
-                  <div className="inline-flex items-center gap-1.5 rounded-full border border-black/[0.06] dark:border-white/[0.08] bg-black/[0.02] dark:bg-white/[0.03] px-3 py-1 text-xs font-medium text-foreground/60 tabular-nums">
-                    <Calendar className="h-3 w-3 text-foreground/40" />
-                    {org.period}
-                  </div>
-                  <div className="inline-flex items-center gap-1 text-[11px] font-medium text-foreground/45 px-1">
-                    <MapPin className="h-3 w-3 text-foreground/40" />
-                    {org.location}
-                  </div>
-                </div>
-              </div>
-
-              {/* Optional Highlight Metric */}
-              {org.metrics && (
-                <div className="mt-5 inline-flex items-center gap-3 rounded-xl border border-indigo-500/20 bg-indigo-500/5 dark:bg-indigo-500/10 px-4 py-2 text-xs">
-                  <span className="font-bold text-indigo-700 dark:text-indigo-400 text-sm">
-                    {org.metrics.value}
-                  </span>
-                  <span className="text-foreground/70">
-                    {org.metrics.label}
-                  </span>
-                </div>
-              )}
-
-              {/* Bullets */}
-              <div className="mt-5 space-y-3">
-                {org.bullets.map((bullet, bi) => (
-                  <div key={bi} className="flex items-start gap-3">
-                    <div className="mt-1.5 h-1.5 w-1.5 rounded-full bg-indigo-500 dark:bg-indigo-400 shrink-0" />
-                    <p className="text-xs sm:text-sm leading-relaxed text-foreground/75 dark:text-foreground/70">
-                      {bullet}
-                    </p>
-                  </div>
-                ))}
-              </div>
-
-              {/* Event Photos Gallery Strip (Apple-style preview thumbnails) */}
-              {org.photos && org.photos.length > 0 && (
-                <div className="mt-6 pt-5 border-t border-black/[0.05] dark:border-white/[0.06]">
-                  <div className="flex items-center gap-2 mb-3">
-                    <Camera className="h-3.5 w-3.5 text-foreground/40" />
-                    <span className="text-xs font-semibold tracking-tight text-foreground/60 uppercase">
-                      Documentation & Visual Materials ({org.photos.length})
+                    <span className="self-start shrink-0 rounded-full border border-foreground/[0.08] bg-foreground/[0.03] px-3 py-1 text-[11px] font-medium tabular-nums text-foreground/45 whitespace-nowrap">
+                      {org.period}
                     </span>
                   </div>
 
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                    {org.photos.map((photo, pi) => (
-                      <button
-                        key={pi}
-                        type="button"
-                        onClick={() => setSelectedPhoto(photo)}
-                        className="group/photo relative aspect-[4/3] rounded-xl overflow-hidden border border-black/[0.08] dark:border-white/[0.1] bg-black/5 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  {/* Bullets */}
+                  <div className="mt-5 border-t border-foreground/[0.06] pt-5 space-y-3">
+                    {org.metrics && (
+                      <div className="flex gap-3">
+                        <span className="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-foreground/25" />
+                        <p className="text-[13px] sm:text-sm leading-relaxed text-foreground/55">
+                          <span className="font-semibold text-foreground/80">
+                            {org.metrics.value}
+                          </span>{" "}
+                          {org.metrics.label}
+                        </p>
+                      </div>
+                    )}
+                    {org.bullets.map((b, bi) => (
+                      <div key={bi} className="flex gap-3">
+                        <span className="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-foreground/25" />
+                        <p className="text-[13px] sm:text-sm leading-relaxed text-foreground/55">
+                          {b}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Photos */}
+                  {org.photos && org.photos.length > 0 && (
+                    <div className="mt-5 grid grid-cols-2 sm:grid-cols-4 gap-3">
+                      {org.photos.map((photo, pi) => (
+                        <button
+                          key={pi}
+                          type="button"
+                          onClick={() => setSelectedPhoto(photo)}
+                          className="group/photo relative aspect-[4/3] overflow-hidden rounded-xl border border-foreground/[0.08] bg-foreground/5 focus:outline-none focus:ring-2 focus:ring-foreground/30"
+                        >
+                          <Image
+                            src={encodeURI(photo.src)}
+                            alt={photo.caption}
+                            fill
+                            sizes="(max-width: 640px) 50vw, 25vw"
+                            className="object-cover transition-transform duration-300 group-hover/photo:scale-105"
+                          />
+                          <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/70 via-black/20 to-transparent p-2.5 opacity-0 transition-opacity group-hover/photo:opacity-100">
+                            <span className="flex items-center gap-1 text-left text-[10px] font-medium text-white line-clamp-1">
+                              <Maximize2 className="h-3 w-3 shrink-0" />
+                              {photo.tag}
+                            </span>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Tags */}
+                  <div className="mt-5 flex flex-wrap items-center gap-1.5">
+                    {org.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full border border-foreground/[0.08] bg-foreground/[0.03] px-2.5 py-0.5 text-[11px] font-medium text-foreground/45"
                       >
-                        <Image
-                          src={encodeURI(photo.src)}
-                          alt={photo.caption}
-                          fill
-                          sizes="(max-width: 640px) 50vw, 25vw"
-                          className="object-cover transition-transform duration-300 group-hover/photo:scale-105"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover/photo:opacity-100 transition-opacity flex items-end p-2.5">
-                          <span className="text-[10px] font-medium text-white line-clamp-1 text-left flex items-center gap-1">
-                            <Maximize2 className="h-3 w-3 shrink-0" />
-                            {photo.tag}
-                          </span>
-                        </div>
-                      </button>
+                        {tag}
+                      </span>
                     ))}
                   </div>
                 </div>
-              )}
-
-              {/* Tags */}
-              <div className="mt-6 pt-4 border-t border-black/[0.04] dark:border-white/[0.05] flex flex-wrap items-center gap-1.5">
-                {org.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-full border border-black/[0.06] dark:border-white/[0.08] bg-black/[0.02] dark:bg-white/[0.03] px-3 py-0.5 text-xs font-medium text-foreground/65"
-                  >
-                    {tag}
-                  </span>
-                ))}
               </div>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Apple-style Lightbox Modal for Event Documentation Photos */}
+      {/* Lightbox */}
       {selectedPhoto && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md animate-in fade-in duration-200"
@@ -469,10 +427,9 @@ export default function OrganizationalExperience() {
             className="relative max-w-4xl w-full rounded-2xl overflow-hidden border border-white/20 bg-[#0e1219] shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Modal Header */}
             <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/10 bg-white/[0.03]">
               <div className="flex items-center gap-2">
-                <span className="rounded-full bg-indigo-500/20 text-indigo-300 text-[11px] font-semibold px-2.5 py-0.5">
+                <span className="rounded-full bg-white/10 text-white/80 text-[11px] font-semibold px-2.5 py-0.5">
                   {selectedPhoto.tag}
                 </span>
                 <span className="text-xs text-white/80 font-medium">
@@ -488,8 +445,6 @@ export default function OrganizationalExperience() {
                 <X className="h-4 w-4" />
               </button>
             </div>
-
-            {/* Modal Image Display */}
             <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full bg-black/50">
               <Image
                 src={encodeURI(selectedPhoto.src)}

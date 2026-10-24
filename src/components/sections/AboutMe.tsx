@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { ExternalLink, Sparkles } from "lucide-react";
+import { ExternalLink, FileText, Sparkles } from "lucide-react";
 import ProfileCard from "@/components/ProfileCard";
 
 const INTRO = [
@@ -310,7 +310,7 @@ export default function AboutMe() {
       <div className="relative z-10 mx-auto w-full max-w-5xl">
         {/* Top: Intro + Profile Card */}
         <div className="grid items-center gap-12 md:grid-cols-2">
-          <div className="order-1 flex justify-center md:order-2 md:justify-end">
+          <div className="order-2 flex justify-center md:order-2 md:justify-end">
             <ProfileCard
               avatarUrl="/profile.png"
               name="Nisrina Zalfa Qarirah"
@@ -330,7 +330,7 @@ export default function AboutMe() {
             />
           </div>
 
-          <div className="order-2 md:order-1">
+          <div className="order-1 md:order-1">
             <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
               About Me
             </h2>
@@ -353,6 +353,20 @@ export default function AboutMe() {
                 </li>
               ))}
             </ul>
+
+            {/* Resume / Document Link */}
+            <div className="mt-6">
+              <a
+                href="https://drive.google.com/file/d/1L27unwZE607dAYQnCyZbBD6wu57qS-EE/view"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-2 rounded-full border border-foreground/15 bg-foreground/[0.03] px-4 py-2 text-xs font-medium text-foreground/80 transition-all duration-300 hover:border-[#52769B]/60 hover:bg-foreground/[0.06] hover:text-foreground active:scale-[0.98]"
+              >
+                <FileText className="h-3.5 w-3.5 text-foreground/60 transition-colors group-hover:text-foreground" />
+                <span>Physics CV</span>
+                <ExternalLink className="h-3 w-3 text-foreground/40 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </a>
+            </div>
           </div>
         </div>
 

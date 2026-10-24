@@ -34,17 +34,16 @@ function makeIcon(id: SectionId, active: boolean, isLight: boolean) {
   let iconColor: string;
 
   if (active) {
-    // Active dock item: brand color tile (#233B5D in light, #52769B in dark) with white icon glyph
-    const activeFill = isLight ? "#233B5D" : "#52769B";
-    tile = `<rect width="64" height="64" rx="16" fill="${activeFill}"/><rect x="0.75" y="0.75" width="62.5" height="62.5" rx="15.25" fill="none" stroke="rgba(255, 255, 255, 0.35)" stroke-width="1.5"/>`;
+    // Active dock item: logo Cobalt Flux blue (#0A47B8) with white icon glyph
+    tile = `<rect width="64" height="64" rx="16" fill="#0A47B8"/><rect x="0.75" y="0.75" width="62.5" height="62.5" rx="15.25" fill="none" stroke="rgba(255, 255, 255, 0.45)" stroke-width="1.5"/>`;
     iconColor = "#ffffff";
   } else if (isLight) {
-    // Light theme: white background icon with clean slate glyph
-    tile = '<rect x="0.75" y="0.75" width="62.5" height="62.5" rx="15.25" fill="#ffffff" stroke="rgba(0, 0, 0, 0.12)" stroke-width="1.5"/>';
-    iconColor = "#334155";
+    // Light theme: clean white background icon with subtle logo blue stroke
+    tile = '<rect x="0.75" y="0.75" width="62.5" height="62.5" rx="15.25" fill="#ffffff" stroke="rgba(10, 71, 184, 0.16)" stroke-width="1.5"/>';
+    iconColor = "#1e293b";
   } else {
-    // Dark theme: dark background icon with muted slate glyph
-    tile = '<rect x="0.75" y="0.75" width="62.5" height="62.5" rx="15.25" fill="#151722" stroke="rgba(255, 255, 255, 0.14)" stroke-width="1.5"/>';
+    // Dark theme: deep obsidian blue background with subtle logo blue stroke
+    tile = '<rect x="0.75" y="0.75" width="62.5" height="62.5" rx="15.25" fill="#0a1020" stroke="rgba(10, 71, 184, 0.3)" stroke-width="1.5"/>';
     iconColor = "#cbd5e1";
   }
 

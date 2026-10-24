@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <section
       id="home"
-      className="relative flex flex-col items-center justify-center gap-8 px-6 pt-20 pb-36 xl:flex-row xl:gap-0 xl:py-0"
+      className="relative flex h-[100dvh] min-h-[100dvh] flex-col items-center justify-center px-6 py-0 xl:h-screen xl:min-h-screen xl:flex-row xl:gap-0"
     >
       <HomeBackground />
 
@@ -62,8 +62,10 @@ export default function Home() {
         </p>
       </div>
 
-      {/* Widgets: samping kiri & kanan (draggable) */}
-      <HomeWidgets />
+      {/* Widgets: samping kiri & kanan (draggable) - hanya tampil di desktop */}
+      <div className="hidden xl:contents">
+        <HomeWidgets />
+      </div>
 
       {/* Seamless bottom fade transitioning into About Me */}
       <div

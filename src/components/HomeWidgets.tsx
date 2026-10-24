@@ -370,7 +370,7 @@ export default function HomeWidgets() {
 
   return (
     <>
-      <div className="pointer-events-auto relative z-20 -mx-6 -my-5 flex w-[calc(100%+3rem)] snap-x snap-mandatory items-center justify-start gap-4 overflow-x-auto px-6 py-8 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden xl:pointer-events-none xl:absolute xl:inset-0 xl:mx-0 xl:my-0 xl:w-auto xl:snap-none xl:justify-between xl:overflow-visible xl:px-10 xl:py-0">
+      <div className="hidden xl:flex pointer-events-none xl:absolute xl:inset-0 xl:mx-0 xl:my-0 xl:w-auto xl:snap-none xl:justify-between xl:overflow-visible xl:px-10 xl:py-0 xl:pt-24">
         <div className="contents xl:flex xl:flex-col xl:gap-4 xl:translate-y-0">
           <Draggable id="clock" onMovedChange={handleMovedChange}>
             <ClockWidget />
@@ -379,7 +379,7 @@ export default function HomeWidgets() {
             <CalendarWidget />
           </Draggable>
         </div>
-        <div className="contents xl:flex xl:flex-col xl:gap-4">
+        <div className="contents xl:flex xl:flex-col xl:gap-4 xl:pt-32">
           <Draggable id="weather" onMovedChange={handleMovedChange}>
             <WeatherWidget />
           </Draggable>

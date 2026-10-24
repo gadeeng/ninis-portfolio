@@ -280,8 +280,8 @@ const MacOSDock: React.FC<MacOSDockProps> = ({
                 boxShadow: `
           0 ${Math.max(4, baseIconSize * 0.1)}px ${Math.max(16, baseIconSize * 0.4)}px rgba(0, 0, 0, 0.3),
           0 ${Math.max(2, baseIconSize * 0.05)}px ${Math.max(8, baseIconSize * 0.2)}px rgba(0, 0, 0, 0.2),
-          0 0 ${Math.max(18, baseIconSize * 0.6)}px rgba(10, 102, 194, 0.22),
-          inset 0 1px 0 rgba(255, 255, 255, 0.15),
+          0 0 ${Math.max(18, baseIconSize * 0.6)}px rgba(10, 71, 184, 0.35),
+          inset 0 1px 0 rgba(255, 255, 255, 0.18),
           inset 0 -1px 0 rgba(0, 0, 0, 0.2)
         `,
                 padding: `${padding}px`
@@ -358,8 +358,8 @@ const MacOSDock: React.FC<MacOSDockProps> = ({
                                         width: `${Math.max(3, baseIconSize * 0.06)}px`,
                                         height: `${Math.max(3, baseIconSize * 0.06)}px`,
                                         borderRadius: '50%',
-                                        backgroundColor: '#52769B',
-                                        boxShadow: '0 0 8px 1.5px rgba(82, 118, 155, 0.9)',
+                                        backgroundColor: '#0A47B8',
+                                        boxShadow: '0 0 8px 2px rgba(10, 71, 184, 0.9)',
                                     }}
                                 />
                             )}

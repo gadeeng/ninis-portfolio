@@ -1,4 +1,12 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import type { CSSProperties } from "react";
+import Image from "next/image";
+import { Mail } from "lucide-react";
+
 const TAGLINE = "Exploring materials, one experiment at a time."; // TODO: ganti
+const EMAIL = "nisrinazalfawork@gmail.com";
 
 function GmailIcon({ size = 22, className = "" }: { size?: number; className?: string }) {
   return (
@@ -127,37 +135,135 @@ function NisrinaSymbolIcon({ size = 120, className = "" }: { size?: number; clas
 const CURRENT_YEAR = 2026;
 
 export default function Footer() {
+  const contactRef = useRef<HTMLSpanElement>(null);
+  const emailRef = useRef<HTMLSpanElement>(null);
+  const [widths, setWidths] = useState<{ contact: number; email: number } | null>(null);
+
+  useEffect(() => {
+    const measure = () => {
+      if (contactRef.current && emailRef.current) {
+        setWidths({
+          contact: contactRef.current.offsetWidth,
+          email: emailRef.current.offsetWidth,
+        });
+      }
+    };
+    measure();
+    document.fonts?.ready.then(measure);
+  }, []);
+
   return (
     <footer
       id="footer"
-      className="flex flex-col items-center justify-center px-6 py-24 text-center"
+      className="relative px-6 py-16 sm:py-20"
     >
-      <div className="mb-6 flex items-center justify-center transition-transform duration-500 hover:scale-105">
-        <NisrinaSymbolIcon
-          size={140}
-          className="h-28 w-28 text-[var(--logo-symbol)] drop-shadow-[0_8px_32px_rgba(10,71,184,0.35)] md:h-36 md:w-36"
-        />
-      </div>
-      <p className="mt-2 text-3xl font-semibold md:text-5xl">Nisrina Zalfa Qarirah.</p>
-      <p className="mt-3 text-foreground/70">{TAGLINE}</p>
+      <div className="relative z-10 mx-auto w-full max-w-5xl">
+        <div className="grid overflow-hidden rounded-2xl border border-sky-500/10 bg-foreground/[0.03] shadow-sm transition-all duration-300 hover:border-sky-500/20 hover:shadow-md md:grid-cols-5">
+        {/* LEFT — Headline + CTA */}
+        <div className="relative flex flex-col justify-between gap-10 overflow-hidden p-8 sm:p-10 md:col-span-3">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -left-10 -top-10 h-64 w-64 rounded-full bg-sky-500/10 blur-[80px]"
+          />
+          <div className="relative z-10">
+            <h2 className="mb-4 text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl">
+              Let&apos;s <span className="text-sky-500">Connect!</span>
+            </h2>
+            <p className="max-w-md text-sm leading-relaxed text-foreground/55 sm:text-base">
+              {TAGLINE} I&apos;m always open to discussing research collaborations,
+              creative ideas, or opportunities. Just reach out!
+            </p>
+          </div>
 
-      <div className="mt-8 flex gap-4">
-        {SOCIALS.map(({ label, href, Icon, hoverClass }) => (
-          <a
-            key={label}
-            href={href}
-            aria-label={label}
-            title={label}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`rounded-full border border-foreground/15 p-3 text-foreground/80 transition-all duration-300 hover:scale-110 active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground ${hoverClass}`}
-          >
-            <Icon size={22} />
-          </a>
-        ))}
-      </div>
+          <div className="relative z-10 flex flex-wrap items-center gap-4">
+            <a
+              href={`mailto:${EMAIL}`}
+              id="connect-contact-btn"
+              style={
+                widths
+                  ? ({
+                      "--contact-w": `${widths.contact}px`,
+                      "--email-w": `${widths.email}px`,
+                    } as CSSProperties)
+                  : undefined
+              }
+              className="group inline-flex max-w-full items-center gap-2 rounded-full bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-300 hover:bg-sky-700 hover:shadow-md active:scale-[0.97]"
+            >
+              <Mail className="h-3.5 w-3.5 shrink-0" />
+              <span className="relative block w-[var(--contact-w,auto)] overflow-hidden whitespace-nowrap transition-[width] duration-500 ease-[cubic-bezier(0.65,0,0.35,1)] group-hover:w-[var(--email-w,auto)] group-focus-visible:w-[var(--email-w,auto)] motion-reduce:transition-none">
+                <span
+                  ref={contactRef}
+                  className="inline-block transition-[transform,opacity] duration-500 ease-out group-hover:-translate-x-[120%] group-hover:opacity-0 group-focus-visible:-translate-x-[120%] group-focus-visible:opacity-0 motion-reduce:transition-none"
+                >
+                  Contact
+                </span>
+                <span
+                  ref={emailRef}
+                  className="absolute left-0 top-0 inline-block translate-x-[120%] opacity-0 transition-[transform,opacity] delay-75 duration-500 ease-out group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100 motion-reduce:transition-none"
+                >
+                  {EMAIL}
+                </span>
+              </span>
+            </a>
 
-      <p className="mt-10 text-xs text-foreground/50">© {CURRENT_YEAR}</p>
+            <a
+              href="#research"
+              id="connect-projects-btn"
+              className="group inline-flex items-center gap-1.5 text-sm font-medium text-sky-500/70 transition-colors duration-200 hover:text-sky-500"
+            >
+              See projects
+              <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">
+                →
+              </span>
+            </a>
+          </div>
+        </div>
+
+        {/* RIGHT — Brand Logo + socials + copyright */}
+        <div className="flex flex-col items-center justify-center gap-7 border-t border-foreground/[0.08] bg-foreground/[0.02] p-8 sm:p-10 md:col-span-2 md:border-l md:border-t-0">
+          <div className="flex items-center justify-center py-2 transition-transform duration-500 hover:scale-105">
+            {/* Dark mode: White lockup */}
+            <Image
+              src="/logo/variants/horizontal/lockup-horizontal-white.svg"
+              alt="Nisrina Zalfa Qarirah — Materials Physics"
+              width={360}
+              height={140}
+              className="hidden dark:block h-20 sm:h-24 md:h-28 w-auto max-w-[300px] sm:max-w-[340px] md:max-w-[360px] object-contain select-none"
+              priority
+            />
+            {/* Light mode: Black lockup */}
+            <Image
+              src="/logo/variants/horizontal/lockup-horizontal-black.svg"
+              alt="Nisrina Zalfa Qarirah — Materials Physics"
+              width={360}
+              height={140}
+              className="block dark:hidden h-20 sm:h-24 md:h-28 w-auto max-w-[300px] sm:max-w-[340px] md:max-w-[360px] object-contain select-none"
+              priority
+            />
+          </div>
+
+          <div className="flex items-center gap-5">
+            {SOCIALS.map(({ label, href, Icon, hoverClass }) => (
+              <a
+                key={label}
+                href={href}
+                aria-label={label}
+                title={label}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`flex h-11 w-11 items-center justify-center rounded-full border border-foreground/[0.12] bg-background/50 text-foreground/80 backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground ${hoverClass}`}
+              >
+                <Icon size={20} />
+              </a>
+            ))}
+          </div>
+
+          <div className="text-center leading-snug">
+            <p className="text-xs text-foreground/40">© {CURRENT_YEAR} Nisrina Zalfa Qarirah</p>
+          </div>
+        </div>
+      </div>
+      </div>
     </footer>
   );
 }
